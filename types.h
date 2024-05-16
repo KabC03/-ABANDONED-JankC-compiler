@@ -1,7 +1,18 @@
 /*
- *  Contains structs for compilation
+ * compiler_structs.h
  *
-*/
+ * Description:
+ * Defines data structures and enumerations for tokens, expressions, and high-level syntactic constructs used
+ * throughout the compilation process. This header is integral for lexical analysis, parsing, and constructing 
+ * the abstract syntax tree (AST).
+ *
+ * Key Components:
+ * - TOKEN_TYPE: Enumerates all recognizable syntax elements including operators, data types, and control structures.
+ * - Token: Represents syntactic elements with associated data, supporting both variables and immediate values.
+ * - ExpressionTree: Represents hierarchical expressions ensuring correct evaluation order.
+ * - High-level structures (DeclarationStatement, IfStatement, etc.): Define the constructs for an AST to facilitate
+ *   code generation and optimization.
+ */
 #ifndef TYPES.H
 #define TYPES.H
 #include <stddef.h>
@@ -73,7 +84,7 @@ typedef enum TOKEN_TYPE {
 
 
 
-//Tokeniser stuff
+//Tokeniser structs: 
 //Output an array of these for each line
 
 typedef struct Token {
@@ -97,9 +108,9 @@ typedef struct Token {
 
 
 
-//AST stuff
+//AST
 //Relevent information is extracted froma line of tokens (array of them), and are put into a struct
-//Can then be easily converted into IR
+//Can then be converted into IR
 //Should only need one of these structs per line of source code
 //Check for syntax (e.g, '=') in parser, dont need to put them into struct
 
@@ -133,7 +144,7 @@ typedef struct DeclarationStatement {
 
     typedef struct DeclarationModifiers {
         bool isArray;
-        size_t isPointer; //0 if not pointer, >0 to indicate pointer level
+        size_t isPointer; //0 if not pointer, >0 to indicate pointer level (e.g isPointer == 2 is equivelant to **)
     } DeclarationModifiers;
 
 
@@ -204,7 +215,7 @@ typedef struct ForStatement {
 typedef struct FunctionStatement {
     //To do
 
-} FunctionStatement
+} FunctionStatement;
 
 
 
