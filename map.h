@@ -32,9 +32,9 @@
  *   and expansion behavior.
  * - **Adding Items**: Use `append_map(Map* map, size_t key, char* value)` to add new key-value pairs to the map. If the map reaches its 
  *   capacity, it will expand according to the specified expansion parameter.
- * - **Removing Items**: Use `remove_item(Map* map, size_t key)` to remove an item by key. The key is set to 0 to indicate the slot is 
+ * - **Removing Items**: Use `remove_item_map(Map* map, size_t key)` to remove an item by key. The key is set to 0 to indicate the slot is 
  *   now empty, but the slot itself is not removed from the array.
- * - **Accessing Items**: Use `return_value(Map* map, size_t key)` to retrieve the value for a given key. If the key has been set to 0, 
+ * - **Accessing Items**: Use `return_value_map(Map* map, size_t key)` to retrieve the value for a given key. If the key has been set to 0, 
  *   the function returns NULL, indicating that the variable was previously removed.
  * - **Destroying the Map**: Use `destroy_map(Map* map)` to free all memory associated with the map, including all keys and values stored 
  *   within. This should be called to prevent memory leaks when the map is no longer needed.
@@ -72,8 +72,8 @@ typedef struct Map {
 void print_map(Map *currentMap);
 Map *create_map(size_t mapSize, size_t expansionParameter);
 bool append_map(Map *currentMap, size_t newKey, char* newValue);
-char *return_value(Map *currentMap, size_t currentKey);
-bool remove_item(Map *currentMap, size_t currentKey);
+char *return_value_map(Map *currentMap, size_t currentKey);
+bool remove_item_map(Map *currentMap, size_t currentKey);
 bool destroy_map(Map *currentMap);
 
 
