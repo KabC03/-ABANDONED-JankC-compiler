@@ -4,6 +4,7 @@
  * Description:
  * This module provides functionality for a dynamic map data structure, which is used to store variables as key-value pairs.
  * The map dynamically adjusts its size as needed to accommodate new elements and manages memory efficiently during its operations.
+ * In the compiler, it is used to store variables as a numerical key rather than as a string to allow for faster searching.
  * 
  * Data Structure:
  * The map is implemented as an array of MapNode structures, where each MapNode contains a key-value pair. The array can grow dynamically
