@@ -1,0 +1,4 @@
+main.c
+tokens.c/h - Token types (enums)
+memory.c/h - Register allocation
+rest of compiler logic
