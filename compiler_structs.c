@@ -1,5 +1,5 @@
 /*
- * valid_tokens.c
+ * compiler_structs.c
  *
  * Description:
  * This file contains an array of strings representing the valid syntax tokens that can be recognized by the compiler's lexer.
