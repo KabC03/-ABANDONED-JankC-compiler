@@ -4,11 +4,9 @@
 
 
 // Global arrays for RAM and register storage
-size_t *keyRAM = NULL;
 size_t *valueRAM = NULL;
 char *valueTypeRAM = NULL;
 
-size_t *keyREG = NULL;
 size_t *valueREG = NULL;
 char *valueTypeREG = NULL;
 
@@ -25,11 +23,10 @@ char *valueTypeREG = NULL;
  */
 bool set_RAM(size_t RAMSize) {
     
-    keyRAM = calloc(RAMSize, sizeof(size_t));
     valueRAM = calloc(RAMSize, sizeof(size_t));
     valueTypeRAM = calloc(RAMSize, sizeof(char));
 
-    if(keyRAM == NULL || valueRAM == NULL || valueTypeRAM == NULL) {
+    if(valueRAM == NULL || valueTypeRAM == NULL) {
         return false;
     }
 
@@ -48,11 +45,10 @@ bool set_RAM(size_t RAMSize) {
  */
 bool set_registers(size_t RegisterSize) {
     
-    keyREG = calloc(RegisterSize, sizeof(size_t));
     valueREG = calloc(RegisterSize, sizeof(size_t));
     valueTypeREG = calloc(RegisterSize, sizeof(char));
 
-    if(keyREG == NULL || valueREG == NULL || valueTypeREG == NULL) {
+    if(valueREG == NULL || valueTypeREG == NULL) {
         return false;
     }
 
@@ -142,6 +138,3 @@ size_t check_register(size_t ID) {
 
     return 0;
 }
-
-
-
