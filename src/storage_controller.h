@@ -2,14 +2,9 @@
  * storage_controller.h
  *
  * Description:
- * Manages the storage of variables and immediate values in both RAM and registers within a compiler. This module
- * interfaces with the system's memory and registers to efficiently handle allocation, retrieval, and updates of
- * data storage.
- *
- * Data Structure:
- * Uses an array-based approach for managing storage where the array index acts as the key and the array value
- * at that index represents the stored value. A separate type array marks entries as 'v' (variable) or 'i' (immediate),
- * indicating the nature of the data stored at each index.
+ * This header file defines the interfaces for managing storage of variables and immediate values in both RAM and registers
+ * within a compiler. It provides functionality to initialize, store, and clear data, as well as to search for data in
+ * RAM and registers.
  *
  * Example Data Representation:
  *    Array for Storage:       | Index:  0   1   2   3
@@ -23,11 +18,23 @@
  *                             | This array indicates whether the corresponding index in the storage array is 
  *                             | storing a variable ('v') or an immediate ('i'). ('\0') is used to denote an empty space
  *
+ *
+ * Data Structures:
+ * The module uses two global arrays for RAM and register storage, one for storing values and another for storing types.
+ * These arrays are indexed where the index acts as a key and the corresponding entry in the arrays represents the stored
+ * value and its type (either variable 'v' or immediate 'i').
+ *
  * Functions:
- * - set_RAM and set_registers: Initialize memory for RAM and registers respectively.
- * - store_RAM and store_register: Stores data in RAM or registers, handling either a variable or an immediate 
- *   based on the type parameter.
- * - check_RAM and check_register: Check for a data's presence in RAM or registers and return its location.
+ * - set_RAM: Initializes the RAM storage with specified size.
+ * - set_registers: Initializes the register storage with specified size.
+ * - store_variable: Stores a variable in either RAM or registers.
+ * - clear_variable: Clears a variable from RAM or registers.
+ * - store_immediate: Stores an immediate value in either RAM or registers.
+ * - clear_immediate: Clears an immediate value from RAM or registers.
+ * - search: Searches for a variable's ID and returns its location.
+ * - search_immediate: Searches for an immediate value and returns its location.
+ *
+ * The types of data that can be stored are defined in a union, accommodating character, float, and integer types.
  */
 
 #ifndef STORAGE_CONTROLLER_H
@@ -38,27 +45,21 @@
 #include <stdbool.h>
 #include <string.h>
 
-// Define the union type for handling different data types in a uniform way
+// Define the union type for handling different data types uniformly.
 typedef union RegisterTypes {
     char c;
     float f;
     int i;
 } RegisterTypes;
 
-// Function to initialize RAM storage
+// Function prototypes
 bool set_RAM(size_t RAMSize);
-
-// Function to initialize register storage
 bool set_registers(size_t RegisterSize);
-
-// Storage management functions for RAM
-bool store_RAM(size_t ID, RegisterTypes value, char type); // 'v' for variable, 'i' for immediate
-
-// Storage management functions for registers
-bool store_register(size_t ID, RegisterTypes value, char type); // 'v' for variable, 'i' for immediate
-
-// Check functions for RAM and registers
-size_t check_RAM(size_t ID); // Return index of item (0 if not found)
-size_t check_register(size_t ID); // Return index of item (0 if not found)
+bool store_variable(size_t ID, char location);
+bool clear_variable(size_t ID, char location);
+bool store_immediate(RegisterTypes value, char location, char type);
+bool clear_immediate(RegisterTypes value, char location, char type);
+size_t search(size_t ID, char location);
+size_t search_immediate(RegisterTypes value, char location, char type);
 
 #endif // STORAGE_CONTROLLER_H
