@@ -1,2 +1,2 @@
 # JankC-compiler
-Man
+ok so basically
