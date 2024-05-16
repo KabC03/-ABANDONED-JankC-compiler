@@ -59,7 +59,7 @@ bool store_variable(size_t ID, char location);
 bool clear_variable(size_t ID, char location);
 bool store_immediate(RegisterTypes value, char location, char type);
 bool clear_immediate(RegisterTypes value, char location, char type);
-size_t search(size_t ID, char location);
+size_t search_variable(size_t ID, char location);
 size_t search_immediate(RegisterTypes value, char location, char type);
 
 #endif // STORAGE_CONTROLLER_H
