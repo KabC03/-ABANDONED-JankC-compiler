@@ -64,7 +64,7 @@ Map *create_map(size_t mapSize, size_t expansionParameter) {
 bool append_map(Map *currentMap, size_t newKey, char*newValue) {
 
     
-    if(currentMap == NULL) return true;
+    if(currentMap == NULL) return false;
 
     if(currentMap->maxSize == currentMap->topIndex) {
         //Map at max capacity, must expand
@@ -92,11 +92,88 @@ bool append_map(Map *currentMap, size_t newKey, char*newValue) {
     return true;
 }
 
+/*
+ * Function: return_value
+ * -----------------------
+ * Retrieve the value associated with a given key in the map.
+ *
+ * currentMap: Pointer to the map from which the value is retrieved.
+ * currentKey: The key for which the value is to be retrieved.
+ *
+ * Returns: Pointer to the value associated with the key if found, otherwise NULL.
+ */
+char *return_value(Map *currentMap, size_t currentKey) {
+
+    char *result = NULL;
+    if(currentMap == NULL) return NULL;
+    else if(currentMap->mapPtr == NULL) return NULL;
+
+    for(int i = 0; i < currentMap->topIndex; i++) {
+        if((currentMap->mapPtr)[i].key == currentKey) {
+            result = (currentMap->mapPtr)[i].value; //Return pointer to the item IN THE MAP ITSELF
+            break;
+        }
+    }
+
+    return result;
+}
 
 
+/*
+ * Function: remove_item
+ * ----------------------
+ * Remove an item from the map by its key.
+ *
+ * currentMap: Pointer to the map from which the item is to be removed.
+ * currentKey: The key of the item to be removed.
+ *
+ * Returns: true if the item was successfully removed, false otherwise.
+ */
+bool remove_item(Map *currentMap, size_t currentKey) {
 
+    if(currentMap == NULL) return false;
+    else if(currentMap->mapPtr == NULL) return false;
 
+    for(int i = 0; i < currentMap->topIndex; i++) {
+        if((currentMap->mapPtr)[i].key == currentKey) {
+            //Found item, deallocate            
 
+            free((currentMap->mapPtr)[i].value); //Free string value
+            (currentMap->mapPtr)[i].key = 0; 
+            //Set to 0 to indicate empty spot, keep in mind that in types.h "size_t variableID == 0" indicates for, if, while, etc
+            //However, 0 here means empty place
+        }
+    }
+    return true;
+}
+
+/*
+ * Function: destroy_map
+ * ----------------------
+ * Frees all resources associated with the map, including all values stored in map nodes.
+ *
+ * currentMap: Pointer to the map to be destroyed.
+ *
+ * Returns: true if the map was successfully destroyed, false if the input was NULL.
+ */
+bool destroy_map(Map *currentMap) {
+
+    if(currentMap == NULL) return false;
+    else if(currentMap->mapPtr == NULL) {
+        free(currentMap);
+        return true;
+    }
+
+    for(int i = 0; i < currentMap->topIndex; i++) {
+
+        free((currentMap->mapPtr)[i].value); //Free string value
+
+    }
+    free(currentMap->mapPtr);
+    free(currentMap);
+    return true;
+
+}
 
 
 
