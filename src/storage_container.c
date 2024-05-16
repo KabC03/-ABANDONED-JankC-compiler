@@ -82,7 +82,7 @@ void print_RAM(void) {
 
     for(int i = 0; i < sizeRam; i++) {
 
-        printf("Register: %d, Type: %c, Value: %lf\n",i, valueTypeRAM[i],valueRAM[i]);
+        printf("Register: %d, Type: %c, Value: %zu\n",i, valueTypeRAM[i],valueRAM[i]);
     }
 
 }
@@ -117,7 +117,7 @@ void print_registers(void) {
 
     for(int i = 0; i < sizeReg; i++) {
 
-        printf("Register: %d, Type: %c, Value: %lf\n",i, valueTypeREG[i],valueREG[i]);
+        printf("Register: %d, Type: %c, Value: %zu\n",i, valueTypeREG[i],valueREG[i]);
     }
 
 }
