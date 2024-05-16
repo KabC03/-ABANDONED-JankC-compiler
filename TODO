@@ -1,4 +1,4 @@
 main.c
-tokens.c/h - Token types (enums)
+compiler_structs.h - functions and expressions 
 memory.c/h - Register allocation
 rest of compiler logic
