@@ -16,10 +16,11 @@ void print_stack(StackNode *head) {
         printf(" │ empty │\n");
     } else {
         while(head != NULL) {
-            printf(" │   %2zu   │\n", head->ID);
+            printf(" │  %2zu   │\n", head->ID);
             head = head->nextPtr;
+            printf(" ├───────┤\n");
         }
-        printf(" ├───────┤\n");
+
     }
 
     printf(" └───────┘\n");
