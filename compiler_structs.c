@@ -16,7 +16,7 @@ char* validTokens[] = {
     "if", "elif", "else",                              // Conditional statements
     "for", "while",                                    // Loop structures
     "none", "VAL_MIN", "VAL_MAX",                      // Constants
-    "+", "-", "*", "/", "%", "=>", ">", "<=", "<", "==", "!=", "=",  // Operators
+    "+", "-", "*", "/", "\%", "=>", ">", "<=", "<", "==", "!=", "=",  // Operators
     "call", "return",                                  // Function calls and returns
     "read", "output", "allocate", "free", "rand", "sleep", // Built-in functions
     "[", "]", "{", "}", "(", ")", ",", ";", "@", "$",  // Punctuation and special symbols
