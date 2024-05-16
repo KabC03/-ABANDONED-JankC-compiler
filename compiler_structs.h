@@ -13,8 +13,8 @@
  * - High-level structures (DeclarationStatement, IfStatement, etc.): Define the constructs for an AST to facilitate
  *   code generation and optimization.
  */
-#ifndef TYPES.H
-#define TYPES.H
+#ifndef COMPILER_STRUCTS.H
+#define COMPILER_STRUCTS.H
 #include <stddef.h>
 
 typedef enum TOKEN_TYPE {
