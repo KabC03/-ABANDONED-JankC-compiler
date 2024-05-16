@@ -87,6 +87,9 @@ bool store_RAM(size_t ID, RegisterTypes value, char type) {
 }
 
 
+
+
+
 /*
  * Function: store_register
  * ------------------------
@@ -99,7 +102,13 @@ bool store_RAM(size_t ID, RegisterTypes value, char type) {
  *
  * Returns: true if the operation is successful, false otherwise.
  */
-bool store_register(size_t ID, RegisterTypes value, char type); // 'v' for variable, 'i' for immediate
+bool store_register(size_t ID, RegisterTypes value, char type) {
+
+
+
+}
+
+
 
 /*
  * Function: check_RAM
@@ -115,6 +124,8 @@ size_t check_RAM(size_t ID) {
 
     return 0;
 } 
+
+
 
 
 
