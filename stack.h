@@ -1,23 +1,25 @@
 /*
- * stack.h
+ * label_stack.h
  *
  * Description:
- * This module provides functionality for a stack data structure specifically designed to manage the scope and control
- * flow constructs in a compiler. Each block-like construct ('if', 'while', etc.) receives a unique ID when it is
- * encountered, and this ID is used to create labels in the compiler's intermediate representation (IR).
- * The stack supports operations such as push, pop, and destruction, allowing for efficient management of block scopes
- * during the compilation process.
+ * This module provides functionality for a stack data structure that is used to manage labels for nested control
+ * flow constructs in a compiler's intermediate representation (IR). Each time a nested control statement like 'if',
+ * 'while', or similar is encountered during compilation, a unique ID is pushed onto the stack. This ID is then used
+ * to generate labels in the IR, ensuring the correct scope and sequence for nested statements.
+ *
+ * The stack supports dynamic management of these labels through push, pop, and clean-up operations, facilitating
+ * correct nesting and ending of control structures during the compilation process.
  *
  * Data Structure:
- * The stack is implemented as a linked list of StackNode structures, where each StackNode holds an ID representing a
- * control flow construct. This allows for dynamic adjustment of the stack size as blocks are entered and exited during
- * parsing.
+ * The stack is implemented as a linked list of StackNode structures. Each StackNode contains an ID representing
+ * a label for a nested statement. This linked list approach allows the stack to dynamically adjust in size as
+ * more nested blocks are entered or exited.
  *
  * Usage:
- * - To push a new control block ID onto the stack, use `push_stack`.
- * - To pop the most recent control block ID off the stack, use `pop_stack`.
- * - To print the current state of the stack for debugging, use `print_stack`.
- * - To clean up the stack at the end of its use or when resetting the compiler state, use `destroy_stack`.
+ * - To manage the entry into a new nested statement, use `push_stack` to add a new label ID.
+ * - To manage the exit from a nested statement, use `pop_stack` to remove the most recent label ID.
+ * - To debug or verify the current nesting of statements, use `print_stack`.
+ * - To clean up the stack upon completion of parsing or when resetting compiler states, use `destroy_stack`.
  */
 
 #ifndef STACK_H
