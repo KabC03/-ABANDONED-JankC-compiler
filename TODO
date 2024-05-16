@@ -1,4 +1,4 @@
 main.c
 compiler_structs.h - functions and expressions 
-storage_container.c/h - Register allocation, also need free function. May remove keyRAM array since it isnt needed
+storage_container.c/h - Fix/test all functions. Make Register storage overwrite if no space available
 rest of compiler logic
