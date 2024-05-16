@@ -59,7 +59,68 @@ bool set_registers(size_t RegisterSize) {
 
 
 
+/*
+ * Function: print_RAM
+ * --------------------
+ * Prints the contents of the RAM storage to the console for debugging purposes. This function displays each index,
+ * the stored value at that index, and whether it is a variable ('v') or an immediate ('i'). Useful for verifying
+ * the current state of RAM during development or troubleshooting.
+ *
+ * Usage:
+ * This function should be called when you need to inspect the RAM contents visually. Typically used in debugging
+ * sessions or during unit testing.
+ *
+ * Example Output:
+ *   Index: 0, Type: v, Value: 1234
+ *   Index: 1, Type: i, Value: 5678
+ *   ...
+ *
+ * Note:
+ * The output is formatted for easy reading and should not be used as a serialization of RAM contents.
+ */
+void print_RAM(void) {
 
+    for(int i = 0; i < sizeRam; i++) {
+
+        printf("Register: %d, Type: %c, Value: %lf\n",i, valueTypeRAM[i],valueRAM[i]);
+    }
+
+}
+
+
+
+
+
+
+/*
+ * Function: print_registers
+ * -------------------------
+ * Prints the contents of the register storage to the console for debugging purposes. Similar to `print_RAM`, it
+ * outputs each register's index, the value stored, and the type of the data (variable 'v' or immediate 'i').
+ * This function is essential for developers to monitor and verify the state of register values at any point in
+ * the program's execution.
+ *
+ * Usage:
+ * Invoke this function to check the register contents at critical points in the application, such as before and
+ * after a function call that modifies registers, or to trace issues related to register management.
+ *
+ * Example Output:
+ *   Register: 0, Type: v, Value: 2021
+ *   Register: 1, Type: i, Value: 4042
+ *   ...
+ *
+ * Note:
+ * This is a diagnostic tool intended for development use only and may impact performance if used excessively in
+ * production environments.
+ */
+void print_registers(void) {
+
+    for(int i = 0; i < sizeReg; i++) {
+
+        printf("Register: %d, Type: %c, Value: %lf\n",i, valueTypeREG[i],valueREG[i]);
+    }
+
+}
 
 
 
