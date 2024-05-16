@@ -93,7 +93,7 @@ bool append_map(Map *currentMap, size_t newKey, char*newValue) {
 }
 
 /*
- * Function: return_value
+ * Function: return_value_map
  * -----------------------
  * Retrieve the value associated with a given key in the map.
  *
@@ -102,7 +102,7 @@ bool append_map(Map *currentMap, size_t newKey, char*newValue) {
  *
  * Returns: Pointer to the value associated with the key if found, otherwise NULL.
  */
-char *return_value(Map *currentMap, size_t currentKey) {
+char *return_value_map(Map *currentMap, size_t currentKey) {
 
     char *result = NULL;
     if(currentMap == NULL) return NULL;
