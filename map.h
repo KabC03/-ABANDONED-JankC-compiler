@@ -51,8 +51,9 @@ typedef struct Map {
 void print_map(Map *currentMap);
 Map *create_map(size_t mapSize, size_t expansionParameter);
 bool append_map(Map *currentMap, size_t newKey, char* newValue);
-
-
+char *return_value(Map *currentMap, size_t currentKey);
+bool remove_item(Map *currentMap, size_t currentKey);
+bool destroy_map(Map *currentMap);
 
 
 #endif
