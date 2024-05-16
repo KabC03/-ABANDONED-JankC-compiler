@@ -138,7 +138,6 @@ bool remove_item(Map *currentMap, size_t currentKey) {
         if((currentMap->mapPtr)[i].key == currentKey) {
             //Found item, deallocate            
 
-            free((currentMap->mapPtr)[i].value); //Free string value
             (currentMap->mapPtr)[i].key = 0; 
             //Set to 0 to indicate empty spot, keep in mind that in types.h "size_t variableID == 0" indicates for, if, while, etc
             //However, 0 here means empty place
