@@ -109,7 +109,7 @@ typedef struct Token {
 
 
 //AST
-//Relevent information is extracted froma line of tokens (array of them), and are put into a struct
+//Relevent information is extracted from line of tokens (array of them), and are put into a struct
 //Can then be converted into IR
 //Should only need one of these structs per line of source code
 //Check for syntax (e.g, '=') in parser, dont need to put them into struct
