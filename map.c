@@ -120,7 +120,7 @@ char *return_value(Map *currentMap, size_t currentKey) {
 
 
 /*
- * Function: remove_item
+ * Function: remove_item_map
  * ----------------------
  * Remove an item from the map by its key.
  *
@@ -129,7 +129,7 @@ char *return_value(Map *currentMap, size_t currentKey) {
  *
  * Returns: true if the item was successfully removed, false otherwise.
  */
-bool remove_item(Map *currentMap, size_t currentKey) {
+bool remove_item_map(Map *currentMap, size_t currentKey) {
 
     if(currentMap == NULL) return false;
     else if(currentMap->mapPtr == NULL) return false;
