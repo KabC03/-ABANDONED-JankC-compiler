@@ -21,7 +21,7 @@
  *                             | Index:  0   1   2   3
  *                             | Type : ['v', 'i', 'v', 'i']
  *                             | This array indicates whether the corresponding index in the storage array is 
- *                             | storing a variable ('v') or an immediate ('i'). ('e') is used to denote an empty space
+ *                             | storing a variable ('v') or an immediate ('i'). ('\0') is used to denote an empty space
  *
  * Functions:
  * - set_RAM and set_registers: Initialize memory for RAM and registers respectively.
