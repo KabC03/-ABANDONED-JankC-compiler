@@ -44,6 +44,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
+#include <stdio.h>
 
 // Define the union type for handling different data types uniformly.
 typedef union RegisterTypes {
