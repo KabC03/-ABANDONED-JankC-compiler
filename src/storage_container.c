@@ -394,6 +394,7 @@ bool clear_immediate(RegisterTypes value, char location, char type) { //Free reg
 
     return false;
     }
+    return false;
 }
 
 
@@ -514,6 +515,7 @@ size_t search_immediate(RegisterTypes value, char location, char type) { //Retur
 
     return 0;
     }
+    return 0;
 }
 
 
