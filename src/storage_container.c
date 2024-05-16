@@ -84,7 +84,7 @@ bool store_variable(size_t ID, char location) { //Store reg/ram
             if(valueTypeREG[i] == '\0') { //Empty position
                 valueREG[i] = ID;
                 valueTypeREG[i] = 'v';
-                break;
+                return true;
             }
         }
 
@@ -94,7 +94,7 @@ bool store_variable(size_t ID, char location) { //Store reg/ram
             if(valueTypeRAM[i] == '\0') { //Empty position
                 valueRAM[i] = ID;
                 valueTypeRAM[i] = 'v';
-                break;
+                return true;
             }
         }
 
@@ -102,7 +102,7 @@ bool store_variable(size_t ID, char location) { //Store reg/ram
         return false;
     }
 
-    return true;
+    return false;
 }
 
 
@@ -125,7 +125,7 @@ bool clear_variable(size_t ID, char location) {  //Free reg/ram
             if(valueTypeREG[i] == 'v' && valueREG[i] == ID) { //Found index
                 valueTypeREG[i] = '\0';
                 valueREG[i] = 0;
-                break;
+                return true;
             }
         }
 
@@ -135,7 +135,7 @@ bool clear_variable(size_t ID, char location) {  //Free reg/ram
             if(valueTypeRAM[i] == 'v' && valueRAM[i] == ID) { //Empty position
                 valueTypeRAM[i] = '\0';
                 valueRAM[i] = 0;
-                break;
+                return true;
             }
         }
 
@@ -143,7 +143,7 @@ bool clear_variable(size_t ID, char location) {  //Free reg/ram
         return false;
     }
 
-    return true;
+    return false;
 }
 
 
@@ -169,7 +169,7 @@ bool store_immediate(RegisterTypes value, char location, char type) { //store re
                 if(valueTypeREG[i] == '\0') { //Empty position
                     valueREG[i] = value.c;
                     valueTypeREG[i] = 'i';
-                    break;
+                    return true;
                 }
             }
 
@@ -179,7 +179,7 @@ bool store_immediate(RegisterTypes value, char location, char type) { //store re
                 if(valueTypeRAM[i] == '\0') { //Empty position
                     valueRAM[i] = value.c;
                     valueTypeRAM[i] = 'i';
-                    break;
+                    return true;
                 }
             }
 
@@ -193,7 +193,7 @@ bool store_immediate(RegisterTypes value, char location, char type) { //store re
                 if(valueTypeREG[i] == '\0') { //Empty position
                     valueREG[i] = value.f;
                     valueTypeREG[i] = 'i';
-                    break;
+                    return true;
                 }
             }
 
@@ -203,7 +203,7 @@ bool store_immediate(RegisterTypes value, char location, char type) { //store re
                 if(valueTypeRAM[i] == '\0') { //Empty position
                     valueRAM[i] = value.f;
                     valueTypeRAM[i] = 'i';
-                    break;
+                    return true;
                 }
             }
 
@@ -217,7 +217,7 @@ bool store_immediate(RegisterTypes value, char location, char type) { //store re
                 if(valueTypeREG[i] == '\0') { //Empty position
                     valueREG[i] = value.i;
                     valueTypeREG[i] = 'i';
-                    break;
+                    return true;
                 }
             }
 
@@ -227,7 +227,7 @@ bool store_immediate(RegisterTypes value, char location, char type) { //store re
                 if(valueTypeRAM[i] == '\0') { //Empty position
                     valueRAM[i] = value.i;
                     valueTypeRAM[i] = 'i';
-                    break;
+                    return true;
                 }
             }
 
@@ -239,7 +239,7 @@ bool store_immediate(RegisterTypes value, char location, char type) { //store re
     }
 
 
-    return true;
+    return false;
 }
 
 
@@ -264,7 +264,7 @@ bool clear_immediate(RegisterTypes value, char location, char type) { //Free reg
                 if(valueTypeREG[i] == 'v' && valueREG[i] == value.c) { //Found index
                     valueTypeREG[i] = '\0';
                     valueREG[i] = 0;
-                    break;
+                    return true;
                 }
             }
 
@@ -274,7 +274,7 @@ bool clear_immediate(RegisterTypes value, char location, char type) { //Free reg
                 if(valueTypeRAM[i] == 'v' && valueRAM[i] == value.c) { //Empty position
                     valueTypeRAM[i] = '\0';
                     valueRAM[i] = 0;
-                    break;
+                    return true;
                 }
             }
 
@@ -288,7 +288,7 @@ bool clear_immediate(RegisterTypes value, char location, char type) { //Free reg
                 if(valueTypeREG[i] == 'v' && valueREG[i] == value.f) { //Found index
                     valueTypeREG[i] = '\0';
                     valueREG[i] = 0;
-                    break;
+                    return true;
                 }
             }
 
@@ -298,7 +298,7 @@ bool clear_immediate(RegisterTypes value, char location, char type) { //Free reg
                 if(valueTypeRAM[i] == 'v' && valueRAM[i] == value.f) { //Empty position
                     valueTypeRAM[i] = '\0';
                     valueRAM[i] = 0;
-                    break;
+                    return true;
                 }
             }
 
@@ -312,7 +312,7 @@ bool clear_immediate(RegisterTypes value, char location, char type) { //Free reg
                 if(valueTypeREG[i] == 'v' && valueREG[i] == value.i) { //Found index
                     valueTypeREG[i] = '\0';
                     valueREG[i] = 0;
-                    break;
+                    return true;
                 }
             }
 
@@ -322,7 +322,7 @@ bool clear_immediate(RegisterTypes value, char location, char type) { //Free reg
                 if(valueTypeRAM[i] == 'v' && valueRAM[i] == value.i) { //Empty position
                     valueTypeRAM[i] = '\0';
                     valueRAM[i] = 0;
-                    break;
+                    return true;
                 }
             }
 
@@ -331,7 +331,7 @@ bool clear_immediate(RegisterTypes value, char location, char type) { //Free reg
         }
 
 
-    return true;
+    return false;
     }
 }
 
