@@ -1,5 +1,5 @@
 /*
- * map.h
+ * stack.h
  *
  * Description:
  * This module provides functionality for a stack data structure specifically designed to manage the scope and control
@@ -20,8 +20,8 @@
  * - To clean up the stack at the end of its use or when resetting the compiler state, use `destroy_stack`.
  */
 
-#ifndef MAP_H
-#define MAP_H
+#ifndef STACK_H
+#define STACK_H
 
 #include <stddef.h>
 #include <stdlib.h>
@@ -40,4 +40,4 @@ bool push_stack(StackNode **head, size_t newValue);
 size_t pop_stack(StackNode **head);
 bool destroy_stack(StackNode **head);
 
-#endif // MAP_H
+#endif // STACK_H
