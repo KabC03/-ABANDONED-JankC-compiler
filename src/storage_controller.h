@@ -53,6 +53,8 @@ typedef union RegisterTypes {
 } RegisterTypes;
 
 // Function prototypes
+void print_RAM(void);
+void print_registers(void);
 bool set_RAM(size_t RAMSize);
 bool set_registers(size_t RegisterSize);
 bool store_variable(size_t ID, char location);
