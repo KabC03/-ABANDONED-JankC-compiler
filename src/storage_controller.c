@@ -10,6 +10,11 @@
 static size_t REGSize = 0;
 static Token *REGArray = NULL;
 
+static size_t *REGCallArray = NULL; 
+//Counts how many times a variable has been loaded from a register
+//Registers with low counts are replaced in push function
+//Reset when a variable is removed
+
 static size_t RAMSize = 0;
 static Token *RAMArray = NULL;
 
@@ -22,9 +27,11 @@ bool initialise_memory(size_t setRegSize, size_t setRamSize) {
 
     //Important - bytes are zeroed - this is how compiler knows free space is available
     REGArray = (Token*)calloc(setRegSize, sizeof(Token));
-    RAMArray = (Token*)calloc(setRamSize, sizeof(Token));
+    REGCallArray = (Token*)calloc(setRegSize, sizeof(Token));
 
-    if(REGArray == NULL || RAMArray == NULL) return false;
+    RAMArray = (Token*)calloc(setRamSize, sizeof(size_t));
+
+    if(REGArray == NULL || REGCallArray == NULL || RAMArray == NULL) return false;
 
     return true;
 }
@@ -113,16 +120,26 @@ bool remove_ram(Token input) { //Free some space in RAM
  *
  * 
  */
-bool push_register(Token input) {
+bool push_register(Token input) { //Push this into a register, push out last used register
 
-    Token lastToken = REGArray[REGSize - 1]; //Save last element
+    size_t currentMin = 0;
+    size_t currentMinIndex = 0;
 
-    for(int i = REGSize - 2; i >= 0; i--) { //Shift elements up 1 position
-        REGArray[i] = REGArray[i+1];
+
+    //See which register has been used the least, replace that register with a new value
+    for(int i = 0; i < REGSize; i++) {
+
+        if(currentMin > REGCallArray[i]) {
+            currentMin = REGCallArray[i];
+            currentMinIndex = i;
+        }
+
     }
-    REGArray[0] = input;
+    Token lastToken = REGArray[currentMinIndex]; //Replace this index
+    REGCallArray[currentMinIndex] = 0; //Set the index to zero
 
-    //Check if last token should be disguarded
+
+    //Check if token should be disguarded
     //Disguard if already in RAM, if not then save to RAM
 
     if(check_RAM(lastToken) == (size_t)(-1)) {
@@ -141,6 +158,7 @@ size_t check_register(Token input) {
         //Registers/RAM should only contain variables - therefore this is ok
         if(input.TokenContent.variableID == REGArray[i].TokenContent.variableID) {
             
+            REGCallArray[i]++; //Increment times called for this register
             return i; //Return register number
             
         }
