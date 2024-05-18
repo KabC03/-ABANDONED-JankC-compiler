@@ -19,6 +19,68 @@ static size_t RAMSize = 0;
 static Token *RAMArray = NULL;
 
 
+
+
+
+
+
+
+
+/*
+ * Function: print_ram
+ * -------------------
+ * Prints the variable/array IDs and sizes stored in RAM.
+ * The output includes the memory address (index) in hexadecimal format, the variable ID, and the size of the array.
+ * This function helps in debugging by displaying the current state of the RAM array.
+ *
+ * Prints:
+ *   Address - The index in RAM, printed as a hexadecimal number.
+ *   ID      - The variable ID stored at that address.
+ *   Size    - The size of the array if the token is an array type.
+ */
+void print_ram(void) {
+    //Prints variable/array IDs in RAM
+
+    if(RAMArray == NULL) {
+        print("RAM not initialised\n");
+    } else {
+        printf("Address         | ID     | Size    |\n");
+        printf("----------------|--------|---------\n");
+        for (int i = 0; i < RAMSize; i++) {
+            printf("%-16x | %-6zu | %-7zu |\n", i, RAMArray[i].TokenContent.variableID, RAMArray[i].arraySize);
+        }
+    }
+}
+
+/*
+ * Function: print_registers
+ * -------------------------
+ * Prints the variable IDs stored in the registers.
+ * The output includes the register index (printed in hexadecimal format) and the variable ID.
+ * This function is useful for debugging by showing the current state of the register array.
+ *
+ * Prints:
+ *   Register - The index of the register, printed as a hexadecimal number.
+ *   ID       - The variable ID stored in the register.
+ */
+void print_ram(void) {
+    //Prints variable IDs in registers
+
+    if(REGArray == NULL || REGCallArray == NULL) {
+        print("Registers not initialised\n");
+    } else {
+        printf("Register        | ID     |\n");
+        printf("----------------|--------|\n");
+        for (int i = 0; i < REGSize; i++) {
+            printf("%-16x | %-6d |\n", i, REGArray[i].TokenContent.variableID);
+        }
+    }
+}
+
+
+
+
+
 /*
  * Function: initialise_memory
  * ---------------------------
