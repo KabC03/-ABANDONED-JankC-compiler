@@ -18,7 +18,21 @@ static char* validTokens[] = {
     "none", "VAL_MIN", "VAL_MAX",                      // Constants
     "+", "-", "*", "/", "%%", "=>", ">", "<=", "<", "==", "!=", "=",  // Operators
     "call", "return",                                  // Function calls and returns
-    "read", "output", "allocate", "free", "rand", "sleep", // Built-in functions
+    "read", "output", "allocate", "free", "sleep", // Built-in functions
     "[", "]", "{", "}", "(", ")", ",", ";", "@", "$",  // Punctuation and special symbols
     "/*", "#"                                          // Comment delimiters
 };
+
+/*
+ * Function Descriptions:
+ * 
+ * read(char type) - Read a datatype from the input byte by byte. The compiler determines the number of bytes to read for each type.
+ * 
+ * output(char type, value) - Output a binary value of type 'type' to the output. The compiler determines the number of bytes to output for each type.
+ * 
+ * allocate(int bytes, variable) - Allocate a certain number of bytes to a variable of type pointer.
+ * 
+ * free(variable) - Free a variable and all memory associated with it (including arrays).
+ * 
+ * sleep(float time) - Sleep for a number of seconds (based on clock cycles). The compiler knows how many clock cycles per second.
+ */
