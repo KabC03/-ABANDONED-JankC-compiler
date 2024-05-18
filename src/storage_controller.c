@@ -15,6 +15,20 @@ Token *RAMArray = NULL;
 
 
 
+bool initialise_memory(size_t setRegSize, size_t setRamSize) { 
+
+    REGSize = setRegSize;
+    RAMSize = setRamSize;
+
+    //Important - bytes are zeroed - this is how compiler knows free space is available
+    REGArray = (Token*)calloc(setRegSize, sizeof(Token));
+    RAMArray = (Token*)calloc(setRamSize, sizeof(Token));
+
+    if(REGArray == NULL || RAMArray == NULL) return false;
+
+    return true;
+}
+
 
 
 
