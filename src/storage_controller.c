@@ -7,11 +7,11 @@
 
 
 //Array used for registers since it is small, faster than LL
-size_t REGSize = 0;
-Token *REGArray = NULL;
+static size_t REGSize = 0;
+static Token *REGArray = NULL;
 
-size_t RAMSize = 0;
-Token *RAMArray = NULL;
+static size_t RAMSize = 0;
+static Token *RAMArray = NULL;
 
 
 
