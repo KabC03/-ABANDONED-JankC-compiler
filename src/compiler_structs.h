@@ -107,7 +107,7 @@ typedef struct Token {
         float floatImmediate;
         int intImmediate;
         char charImmediate;
-    };
+    } TokenContent;
 
 } Token;
 
