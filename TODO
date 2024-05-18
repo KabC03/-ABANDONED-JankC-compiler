@@ -1,4 +1,4 @@
 main.c
-compiler_structs.h - functions and expressions 
+compiler_structs.h - functions and expressions (expressions should use binary expression tree - also will require tree.c source file creation)
 storage_container.c - make sure array allocation works
 rest of compiler logic
