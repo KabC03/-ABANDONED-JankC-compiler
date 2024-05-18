@@ -129,7 +129,13 @@ typedef struct ExpressionTree {
     //Basically have a tree of stuff - allows for bodmas
 
 
+
+
+    
+
+
 } ExpressionTree;
+
 
 
 
@@ -137,7 +143,6 @@ typedef struct DeclarationModifiers {
     bool isArray;
     size_t isPointer; //0 if not pointer, >0 to indicate pointer level (e.g isPointer == 2 is equivelant to **)
 } DeclarationModifiers;
-
 typedef struct DeclarationStatement {
 
     /*
@@ -154,7 +159,7 @@ typedef struct DeclarationStatement {
     //Variable stored information
     Token dataType;
 
-
+    DeclarationModifiers declarationModifiers; //Declaration modifiers from above struct
 
 
 
