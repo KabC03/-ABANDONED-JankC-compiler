@@ -63,7 +63,7 @@ void print_ram(void) {
  *   Register - The index of the register, printed as a hexadecimal number.
  *   ID       - The variable ID stored in the register.
  */
-void print_ram(void) {
+void print_reg(void) {
     //Prints variable IDs in registers
 
     if(REGArray == NULL || REGCallArray == NULL) {
