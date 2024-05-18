@@ -97,7 +97,7 @@ typedef struct Token {
     enum TOKEN_TYPE tokenType; //Actual token itself (for, while, variable, immediate, etc)
     enum TOKEN_TYPE datatype; //float/char/etc - only used for immediate and variable types
 
-    size_t arraySize; //If this is an array - specify its size
+    size_t arraySize; //If this is an array - specify its size - if not set to 0
 
     union TokenContent {
         size_t variableID; 
