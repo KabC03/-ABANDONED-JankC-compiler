@@ -40,7 +40,7 @@ bool initialise_memory(size_t setRegSize, size_t setRamSize) {
 
     //Important - bytes are zeroed - this is how compiler knows free space is available
     REGArray = (Token*)calloc(setRegSize, sizeof(Token));
-    REGCallArray = (Token*)calloc(setRegSize, sizeof(Token));
+    REGCallArray = (size_t*)calloc(setRegSize, sizeof(Token));
 
     RAMArray = (Token*)calloc(setRamSize, sizeof(size_t));
 
@@ -68,7 +68,7 @@ bool destroy_memory(void) {
         free(REGCallArray);
         free(RAMArray);
     }
-
+    return true;
 }
 
 
