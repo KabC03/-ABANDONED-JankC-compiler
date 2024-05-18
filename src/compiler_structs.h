@@ -1,233 +1,51 @@
 /*
- * compiler_structs.h
+ * storage_controller.h
  *
  * Description:
- * Defines data structures and enumerations for tokens, expressions, and high-level syntactic constructs used
- * throughout the compilation process. This header is integral for lexical analysis, parsing, and constructing 
- * the abstract syntax tree (AST).
+ * This module provides core functionalities for memory management within a simulated system, handling both register and RAM storage.
+ * It manages a fixed array of registers and a simulated RAM space, designed to optimize memory operations typically required by compilers
+ * and other systems that need to manage variable storage efficiently. This includes initializing, reserving, checking, and removing memory,
+ * as well as managing register usage based on frequency of access.
  *
- * Key Components:
- * - TOKEN_TYPE: Enumerates all recognizable syntax elements including operators, data types, and control structures.
- * - Token: Represents syntactic elements with associated data, supporting both variables and immediate values.
- * - ExpressionTree: Represents hierarchical expressions ensuring correct evaluation order.
- * - High-level structures (DeclarationStatement, IfStatement, etc.): Define the constructs for an AST to facilitate
- *   code generation and optimization.
+ * Data Structure:
+ * - REGArray: A statically sized array representing registers. Each element is of type Token and is used to store variable data.
+ * - RAMArray: A statically sized array simulating RAM, used for additional storage when register space is insufficient.
+ * - REGCallArray: An array tracking the number of accesses for each register to implement a least-used replacement strategy.
+ *
+ * Key Features and Behaviors:
+ * - **Memory Initialization and Cleanup**: Functions to initialize and destroy memory resources, ensuring proper setup and cleanup.
+ * - **Memory Reservation**: Dynamically manages memory allocation within the RAMArray based on requested size and data type.
+ * - **Memory Access and Management**: Provides functionality to check, push, and remove tokens from memory, optimizing register usage
+ *   and managing RAM storage efficiently.
+ * - **Least-Used Replacement Strategy**: Implements a policy for register replacement based on the least number of accesses, ensuring
+ *   efficient use of limited register resources.
+ *
+ * Usage:
+ * - **Initialize Memory**: Use `initialise_memory` to set up REGArray and RAMArray with specified sizes.
+ * - **Reserve RAM**: Use `reserve_ram` to allocate memory in RAM for a token.
+ * - **Remove from RAM**: Use `remove_ram` to free memory occupied by a token in RAM.
+ * - **Check RAM**: Use `check_ram` to find if and where a token is stored in RAM.
+ * - **Push Register**: Use `push_register` to insert a token into the register array based on the least-used strategy.
+ * - **Check Register**: Use `check_register` to find if and where a token is stored in the registers and to increment access count.
  */
-#ifndef COMPILER_STRUCTS.H
-#define COMPILER_STRUCTS.H
+
+
+
+#ifndef STORAGE_CONTROLLER_H 
+#define STORAGE_CONTROLLER_H 
+
 #include <stddef.h>
-
-typedef enum TOKEN_TYPE {
-
-    //Tokenisation
-    TOK_INVALID,
-
-
-    //Variable types
-    TOK_IMMEDIATE,
-    TOK_FUNCTION_NAME,
-    TOK_VARIABLE,
-
-
-    //Datatypes
-    TOK_INT,
-    TOK_FLOAT,
-    TOK_CHAR,
-    TOK_ARRAY,
-    TOK_POINTER,
-
-    //Conditional statements
-    TOK_IF,
-    TOK_ELIF,
-    TOK_ELSE,
-    TOK_FOR,
-    TOK_WHILE,
-    
-    //Function call
-    TOK_CALL,
-    TOK_RETURN,
-
-    //Inbuilt functions
-    TOK_SLEEP,       //Wait
-    TOK_OUTPUT,      //Print
-    TOK_READ,        //Read from input
-    TOK_ALLOCATE,    //Allocate memory
-    TOK_FREE,        //Free memory
-
-    //Constants
-    TOK_NULL,
-    // Operators
-    TOK_ADD,            // '+'
-    TOK_SUBTRACT,       // '-'
-    TOK_MULTIPLY,       // '*'
-    TOK_DIVIDE,         // '/'
-    TOK_MODULUS,        // '%'
-    TOK_GREATER_EQUAL,  // '=>'
-    TOK_GREATER,        // '>'
-    TOK_LESS_EQUAL,     // '<='
-    TOK_LESS,           // '<'
-    TOK_EQUAL,          // '=='
-    TOK_NOT_EQUAL,      // '!='
-    // Symbols
-    TOK_OPEN_SQUARE,
-    TOK_CLOSE_SQUARE,
-    TOK_OPEN_CURLY,
-    TOK_CLOSE_CURLY,
-    TOK_OPEN_PAREN,
-    TOK_CLOSE_PAREN,
-    TOK_COMMA,
-    TOK_SEMICOLON,
-    TOK_EQUALS, // Equals for assignments (=)
-    TOK_AT,     // Dereference operator   (@)
-    TOK_DOLLAR, // Address of operator    ($)
-    // Comments
-    TOK_MULTILINE_COMMENT,  // '/*  */'
-    TOK_SINGLELINE_COMMENT, // '#'
-
-
-} TOKEN_TYPE;
-
-
-
-//Tokeniser structs: 
-//Output an array of these for each line
-
-typedef struct Token {
-
-    enum TOKEN_TYPE tokenType; //Actual token itself (for, while, variable, immediate, etc)
-    enum TOKEN_TYPE dataType; //float/char/etc - only used for immediate and variable types
-
-    size_t arraySize; //If this is an array - specify its size - if not set to 0
-
-    union TokenContent {
-        size_t variableID; 
-        //Each variable has a 'variable ID' that is stored in a map (map.c/h)
-        //Variable ID of 0 is set to indicate non-variable/immediate (e.g symbol, 'for', 'if', 'while', etc)
-
-
-        //Immediates have their values directly stored
-        float floatImmediate;
-        int intImmediate;
-        char charImmediate;
-    } TokenContent;
-
-} Token;
-
-
-
-
-//AST
-//Relevent information is extracted from line of tokens (array of them), and are put into a struct
-//Can then be converted into IR
-//Should only need one of these structs per line of source code
-//Check for syntax (e.g, '=') in parser, dont need to put them into struct
-
-
-typedef struct ExpressionTree {
-
-    //To do
-    //Basically have a tree of stuff - allows for bodmas
-
-
-} ExpressionTree;
-
-
-
-
-typedef struct DeclarationStatement {
-
-    /*
-    int, x, @, [5] = y;
-    Above declares x - an int pointer to an array of 5 elements
-
-    float, x, [5] = y;
-    Above declares x - a float array of 5 elements
-
-    char, x = y;
-    Above declares x - a char
-    */
-
-    //Variable stored information
-    Token dataType;
-
-    typedef struct DeclarationModifiers {
-        bool isArray;
-        size_t isPointer; //0 if not pointer, >0 to indicate pointer level (e.g isPointer == 2 is equivelant to **)
-    } DeclarationModifiers;
-
-
-
-    //Variable set equal to this expression
-    ExpressionTree *expressionTree;
-
-} DeclarationStatement;
-
-
-
-typedef struct IfStatement {
-
-    /*
-    Cannot combine statements - must nest (e.g no && or || operator)
-    if(x >= 0)
-    */
-
-
-    Token ifType; 
-    /*
-    if, elif or else - One of these expected:
-    TOK_IF,
-    TOK_ELIF,
-    TOK_ELSE,
-    */
-
-    ExpressionTree *expression1;
-    Token comparator;
-    ExpressionTree *expression2;
-
-} IfStatement;
-
-
-
-typedef struct WhileStatement { //Essentially the same structure as IfStatement, not combined to maintain clarity
-
-    /*
-    Cannot combine statements - must nest (e.g no && or || operator)
-    while(x >= 0)
-    */
-
-    ExpressionTree *expression1;
-    Token comparator;
-    ExpressionTree *expression2;
-
-} WhileStatement;
-
-typedef struct ForStatement {
-
-    /*
-    For loop should follow this structure (can only use ints)
-
-    for(x, 0, 10, 1) -> for(int x = 0; x < 10; x++)    
-
-    x should go out of scope after loop ends
-    */
-
-    Token variableName;
-    Token start;
-    Token stop;
-    Token increment;
-
-
-} ForStatement;
-
-
-typedef struct FunctionStatement {
-    //To do
-
-} FunctionStatement;
-
-
-
-
-
-
-#endif 
+#include <stdlib.h>
+#include <stdbool.h>
+#include <string.h>
+#include "compiler_structs.h"
+
+// Function prototypes for memory management
+bool initialise_memory(size_t setRegSize, size_t setRamSize);
+bool reserve_ram(Token input, size_t size);
+bool remove_ram(Token input);
+size_t check_ram(Token input);
+bool push_register(Token input);
+size_t check_register(Token input);
+
+#endif // STORAGE_CONTROLLER_H
