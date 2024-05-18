@@ -42,7 +42,7 @@ void print_ram(void) {
     //Prints variable/array IDs in RAM
 
     if(RAMArray == NULL) {
-        print("RAM not initialised\n");
+        printf("RAM not initialised\n");
     } else {
         printf("Address         | ID     | Size    |\n");
         printf("----------------|--------|---------\n");
@@ -67,12 +67,12 @@ void print_reg(void) {
     //Prints variable IDs in registers
 
     if(REGArray == NULL || REGCallArray == NULL) {
-        print("Registers not initialised\n");
+        printf("Registers not initialised\n");
     } else {
         printf("Register        | ID     |\n");
         printf("----------------|--------|\n");
         for (int i = 0; i < REGSize; i++) {
-            printf("%-16x | %-6d |\n", i, REGArray[i].TokenContent.variableID);
+            printf("%-16x | %-6zu |\n", i, REGArray[i].TokenContent.variableID);
         }
     }
 }
