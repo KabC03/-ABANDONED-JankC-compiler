@@ -23,6 +23,11 @@ typedef enum TOKEN_TYPE {
     TOK_INVALID,
 
 
+    //Variable types
+    TOK_IMMEDIATE,
+    TOK_FUNCTION_NAME,
+    TOK_VARIABLE,
+
 
     //Datatypes
     TOK_INT,
@@ -89,7 +94,8 @@ typedef enum TOKEN_TYPE {
 
 typedef struct Token {
 
-    enum TOKEN_TYPE tokenType;
+    enum TOKEN_TYPE tokenType; //Actual token itself (for, while, variable, immediate, etc)
+    enum TOKEN_TYPE datatype; //float/char/etc - only used for immediate and variable types
 
     union TokenContent {
         size_t variableID; 
