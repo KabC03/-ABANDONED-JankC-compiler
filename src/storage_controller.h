@@ -38,18 +38,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
-
-typedef struct Token {
-    int tokenType;
-    int tokenModifier;
-    union {
-        size_t variableID; // Used for referencing variables stored in memory
-        int intImmediate;
-        float floatImmediate;
-        char charImmediate;
-    } TokenContent;
-    size_t arraySize; // Size of the array if the token is an array type
-} Token;
+#include "compiler_structs.h"
 
 // Function prototypes for memory management
 bool initialise_memory(size_t setRegSize, size_t setRamSize);
