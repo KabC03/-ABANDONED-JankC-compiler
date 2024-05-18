@@ -1,4 +1,4 @@
 main.c
 compiler_structs.h - functions and expressions 
-storage_container.c/h - Fix/test all functions. Make Register storage overwrite if no space available. Set flag to store pushed out variable to RAM if not already
+storage_container.c - make sure array allocation works
 rest of compiler logic
