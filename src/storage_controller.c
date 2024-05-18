@@ -19,9 +19,22 @@ static size_t RAMSize = 0;
 static Token *RAMArray = NULL;
 
 
-
+/*
+ * Function: initialise_memory
+ * ---------------------------
+ * Initialises memory arrays for registers (REGArray) and RAM (RAMArray) based on the specified sizes.
+ * Both arrays are zero-initialized to indicate free spaces, a crucial step for managing memory availability.
+ *
+ * Parameters:
+ *   setRegSize - the size to set for the register array
+ *   setRamSize - the size to set for the RAM array
+ *
+ * Returns:
+ *   true if both memory arrays are successfully allocated and initialized,
+ *   false if any allocation fails.
+ */
 bool initialise_memory(size_t setRegSize, size_t setRamSize) { 
-
+    //Initialise registers/ram
     REGSize = setRegSize;
     RAMSize = setRamSize;
 
@@ -37,9 +50,45 @@ bool initialise_memory(size_t setRegSize, size_t setRamSize) {
 }
 
 
+/*
+ * Function: destroy_memory
+ * ------------------------
+ * Frees all allocated memory for REGArray, REGCallArray, and RAMArray. This function should be called
+ * at the end of program execution to clean up all allocated resources and prevent memory leaks.
+ *
+ * Returns:
+ *   true if all memory was successfully freed,
+ *   false if any of the memory arrays were not initialized prior to this call.
+ */
+bool destroy_memory(void) {
+    //Call this at the end of main to clean up
+    if(REGArray == NULL || REGCallArray == NULL || RAMArray == NULL) return false;
+    else {
+        free(REGArray);
+        free(REGCallArray);
+        free(RAMArray);
+    }
+
+}
 
 
-bool reserve_ram(Token input, size_t size) { //Reserve some space in RAM - basic malloc
+/*
+ * Function: reserve_ram
+ * ---------------------
+ * Attempts to allocate a specified size in RAM for a given token. If the size is zero, it allocates
+ * the minimum space required by the datatype of the token. This function searches for a contiguous block
+ * of free memory in RAMArray large enough to accommodate the request.
+ *
+ * Parameters:
+ *   input - the token to store in RAM
+ *   size - the size of memory to reserve (can be zero to auto-determine based on datatype)
+ *
+ * Returns:
+ *   true if the memory was successfully reserved,
+ *   false otherwise (e.g., not enough space).
+ */
+bool reserve_ram(Token input, size_t size) { 
+    //Reserve some space in RAM - basic malloc
     //Note that first element of array should contain array field in 'input' to specify it is an array
     //It also has a name - like variables so the compiler can find it
 
@@ -66,9 +115,22 @@ bool reserve_ram(Token input, size_t size) { //Reserve some space in RAM - basic
 
 
 
-//Check RAM if a variable/immediate is stored there, return address
+/*
+ * Function: check_ram
+ * -------------------
+ * Searches the RAMArray for a given token and returns the index if found. This function helps
+ * determine whether a specific token is already stored in RAM, which is essential for managing
+ * memory allocation and avoiding duplicates.
+ *
+ * Parameters:
+ *   input - the token to check in RAM
+ *
+ * Returns:
+ *   The index of the token in RAM if found,
+ *   -1 otherwise.
+ */
 size_t check_ram(Token input) {
-
+    //Check RAM if a variable is stored there, return address
     for(int i = 0; i < REGSize; i++) {
 
 
@@ -93,7 +155,20 @@ size_t check_ram(Token input) {
 
 
 
-
+/*
+ * Function: remove_ram
+ * --------------------
+ * Frees up space in RAMArray that is occupied by a given token. This function is used to manage
+ * memory by clearing space when it is no longer needed. If the token represents an array, it clears
+ * the space occupied by the entire array.
+ *
+ * Parameters:
+ *   input - the token to remove from RAM
+ *
+ * Returns:
+ *   true if the token was successfully removed,
+ *   false if the token was not found in RAM.
+ */
 bool remove_ram(Token input) { //Free some space in RAM
     //Frees a variable/array
     //First element in array contains array token which specifies the array size - this is how compiler knows how much to free
@@ -116,9 +191,17 @@ bool remove_ram(Token input) { //Free some space in RAM
 
 /*
  * Function: push_register
- * ----------------------
+ * -----------------------
+ * Pushes a token into the least used register based on the usage statistics in REGCallArray.
+ * This function implements a least-used replacement policy to manage the limited space in registers
+ * efficiently. If the replaced register's token is not in RAM, it gets saved to RAM.
  *
- * 
+ * Parameters:
+ *   input - the token to push into a register
+ *
+ * Returns:
+ *   true if the token was successfully pushed into a register,
+ *   false if an error occurred (e.g., failed to save to RAM).
  */
 bool push_register(Token input) { //Push this into a register, push out last used register
 
@@ -150,9 +233,22 @@ bool push_register(Token input) { //Push this into a register, push out last use
 }
 
 
-//Check register if a variable/immediate is stored there
+/*
+ * Function: check_register
+ * ------------------------
+ * Checks whether a specific token is stored in any of the registers and returns the register index.
+ * Additionally, this function increments the access count for the register in which the token is found,
+ * which is used for managing the replacement policy.
+ *
+ * Parameters:
+ *   input - the token to check in the registers
+ *
+ * Returns:
+ *   The index of the register containing the token if found,
+ *   -1 otherwise.
+ */
 size_t check_register(Token input) {
-
+    //Check register if a variable/immediate is stored there
     for(int i = 0; i < REGSize; i++) {
 
         //Registers/RAM should only contain variables - therefore this is ok
