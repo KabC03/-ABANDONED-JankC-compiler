@@ -31,16 +31,19 @@
 
 
 
-#ifndef STORAGE_CONTROLLER_H
-#define STORAGE_CONTROLLER_H
+#ifndef STORAGE_CONTROLLER_H 
+#define STORAGE_CONTROLLER_H 
 
 #include <stddef.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <stdio.h>
 #include <string.h>
 #include "compiler_structs.h"
 
 // Function prototypes for memory management
+void print_ram(void);
+void print_reg(void);
 bool initialise_memory(size_t setRegSize, size_t setRamSize);
 bool reserve_ram(Token input, size_t size);
 bool remove_ram(Token input);
