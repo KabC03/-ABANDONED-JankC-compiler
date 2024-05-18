@@ -127,11 +127,12 @@ typedef struct ExpressionTree {
 
     //To do
     //Basically have a tree of stuff - allows for bodmas
+    //Should be able to handle function calls (just call a jump too it)
 
 
 
 
-    
+
 
 
 } ExpressionTree;
@@ -227,7 +228,12 @@ typedef struct ForStatement {
 
 
 typedef struct FunctionStatement {
-    //To do
+
+    Token functionName; //Remember this somewhere
+
+    DeclarationStatement *inputParameterArray;
+    //Compiler can essentially just declare these variables in the function the same way its done normally
+    //Array of input parameters
 
 } FunctionStatement;
 
