@@ -225,8 +225,8 @@ bool push_register(Token input) { //Push this into a register, push out last use
     //Check if token should be disguarded
     //Disguard if already in RAM, if not then save to RAM
 
-    if(check_RAM(lastToken) == (size_t)(-1)) {
-        reserve_RAM(lastToken, 0); //Save last token
+    if(check_ram(lastToken) == (size_t)(-1)) {
+        reserve_ram(lastToken, 0); //Save last token
     }
 
     return true;
