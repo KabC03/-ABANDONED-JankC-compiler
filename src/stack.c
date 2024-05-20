@@ -4,6 +4,17 @@
 
 
 /*
+ * Internal Structure Definition
+ * -----------------------------
+ * The StackNode structure is defined here to ensure it is not visible outside this implementation file.
+ */
+struct StackNode {
+    void *data;
+    struct StackNode *nextPtr;
+};
+
+
+/*
  * Function: stack_initialise
  * --------------------------
  * Initializes a stack to an empty state.
