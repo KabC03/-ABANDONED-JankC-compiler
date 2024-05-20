@@ -57,6 +57,7 @@ void stack_initialise(Stack *stack);
 
 // Stack operations for size_t data
 bool stack_push_size_t(Stack *stack, size_t data);
+size_t stack_peak_size_t(Stack *stack);
 size_t stack_pop_size_t(Stack *stack);
 void stack_destroy_size_t(Stack *stack);
 void stack_print_size_t(Stack *stack);
@@ -65,6 +66,7 @@ void stack_print_size_t(Stack *stack);
 // Stack operations for Token data
 bool stack_push_Token(Stack *stack, Token data);
 Token stack_pop_Token(Stack *stack);
+Token stack_peak_Token(Stack *stack);
 void stack_destroy_Token(Stack *stack);
 void stack_print_Token(Stack *stack);
 
