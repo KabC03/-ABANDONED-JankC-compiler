@@ -27,3 +27,6 @@ $(EXEC): $(OBJS)
 # Clean objects and executable
 clean:
 	rm -f $(OBJS) $(EXEC)
+
+
+	
