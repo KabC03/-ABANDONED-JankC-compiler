@@ -17,6 +17,24 @@
 #define COMPILER_STRUCTS_H 
 #include <stddef.h>
 
+typedef enum OPERATOR_PRECEDENCE {
+    //Lower values indicate lower presedence
+    //Used in shunting yard algorithm
+
+    FUNCTION_PRECEDENCE = 0,
+
+    ADDITION_PRECEDENCE = 1,
+    SUBTRACTION_PRECEDENCE = 1,
+
+    MULTIPLICATION_PRECEDENCE = 2,
+    DIVISION_PRECEDENCE = 2,
+    MOD_PRECEDENCE = 2,
+
+} OPERATOR_PRECEDENCE;
+
+
+
+
 typedef enum TOKEN_TYPE {
 
     //Tokenisation
