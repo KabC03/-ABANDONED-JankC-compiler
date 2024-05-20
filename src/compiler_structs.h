@@ -29,6 +29,7 @@ typedef enum TOKEN_TYPE {
     TOK_VARIABLE,
     TOK_OPERATOR, // '+', '-', etc
     TOK_CURVED_BRACE, // '(' and ')' ONLY
+    TOK_COMPARATOR, //'!=', '==', '>=', etc
 
     //Datatypes
     TOK_INT,
