@@ -49,7 +49,7 @@ typedef struct Stack {
 } Stack;
 
 
-
+// Stack initialisation
 void stack_initialise(Stack *stack);
 
 
