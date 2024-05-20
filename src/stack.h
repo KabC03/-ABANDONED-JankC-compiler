@@ -3,7 +3,7 @@
  *
  * Description:
  * This module provides a generic stack data structure designed to manage diverse data types for a compiler's 
- * needs, particularly for nested control flow constructs and handling tokens during the shunting yard algorithm 
+ * needs, particularly for nested control flow constructs (labels) and handling tokens during the shunting yard algorithm 
  * in intermediate representation (IR) processing.
  * 
  * The stack facilitates dynamic management of data, supporting operations like push, pop, and clean-up, which 
