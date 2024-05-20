@@ -196,6 +196,11 @@ bool stack_push_size_t(Stack *stack, size_t data) {
 }
 
 
+
+
+
+
+
 /*
  * Function: stack_pop_size_t
  * --------------------------
@@ -216,6 +221,35 @@ size_t stack_pop_size_t(Stack *stack) {
 
     return result;  
 }
+
+
+
+/*
+ * Function: stack_peak_size_t
+ * --------------------------
+ * Peak a size_t value from the stack.
+ *
+ * Parameters:
+ *   stack - Pointer to the stack.
+ *
+ * Returns:
+ *   size_t value peaked from the stack; returns (size_t)-1 if the stack is empty.
+ */
+size_t stack_peak_size_t(Stack *stack) {
+
+    size_t returnVal = stack_pop_size_t(stack); //Returns -1 on failure already
+
+    if(stack_push_size_t(stack, returnVal) == false) return -1; //Temporary
+
+
+    return returnVal;  
+}
+
+
+
+
+
+
 
 
 /*
@@ -301,7 +335,7 @@ bool stack_push_Token(Stack *stack, Token data) {
  *   stack - Pointer to the stack.
  *
  * Returns:
- *   Token popped from the stack; returns a Token with type TOK_TOK_END_ARRAY if the stack is empty.
+ *   Token popped from the stack; returns a Token with type TOK_INVALID if the stack is empty.
  */
 Token stack_pop_Token(Stack *stack) {
 
@@ -322,6 +356,34 @@ Token stack_pop_Token(Stack *stack) {
 
     return result;  
 }
+
+
+
+/*
+ * Function: stack_peak_Token
+ * --------------------------
+ * Peak a Token value from the stack.
+ *
+ * Parameters:
+ *   stack - Pointer to the stack.
+ *
+ * Returns:
+ *   Token value peaked from the stack; returns (Token)-1 if the stack is empty.
+ */
+Token stack_peak_Token(Stack *stack) {
+
+    Token returnVal = stack_pop_Token(stack); //Returns -1 on failure already
+
+    returnVal.tokenType = TOK_END_ARRAY;
+    if(stack_push_Token(stack, returnVal) == false) return returnVal;
+
+
+    return returnVal;  
+}
+
+
+
+
 
 
 /*
