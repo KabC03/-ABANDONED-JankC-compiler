@@ -311,7 +311,7 @@ Token stack_pop_Token(Stack *stack) {
 
 
     void *resultPtr = pop_generic(stack);
-    if(resultPtr == NULL) return result; //Return invalid token
+    if(resultPtr == NULL) return result; //Return end of array token
 
 
 
