@@ -1,44 +1,29 @@
+# Compiler
+CC = clang
 
-CC = gcc
-CFLAGS = -Wall -g
+# Compiler flags
+CFLAGS = -Wall -Wextra -g
 
-# Directory for source files
-SRC_DIR = ./src
+# Source files
+SRCS = main.c compiler_structs.c shunting_yard.c stacks.c storage_controller.c
 
-# Directory for object files
-OBJ_DIR = ./obj
+# Object files
+OBJS = $(SRCS:.c=.o)
 
-# Directory for binary output
-BIN_DIR = ./bin
+# Executable name
+EXEC = my_program
 
-# Target executable name
-TARGET = $(BIN_DIR)/compiler
+# Default target
+all: $(EXEC)
 
-# List all source files here
-SOURCES = $(SRC_DIR)/main.c $(SRC_DIR)/compiler_structs.c $(SRC_DIR)/stack.c $(SRC_DIR)/storage_container.c
+# Linking object files to create the executable
+$(EXEC): $(OBJS)
+	$(CC) $(CFLAGS) -o $@ $^
 
-# Convert source file paths to object file paths
-OBJECTS = $(SOURCES:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
-
-# Default rule to build everything
-all: $(TARGET)
-
-# Link object files into a binary
-$(TARGET): $(OBJECTS)
-	@mkdir -p $(@D)
-	$(CC) $^ -o $@
-
-# Compile each source file to an object file
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
-	@mkdir -p $(@D)
+# Compile source files
+%.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
-# Clean up object files and the binary
+# Clean objects and executable
 clean:
-	rm -rf $(OBJ_DIR) $(BIN_DIR)
-
-# Additional dependencies
-$(OBJ_DIR)/main.o: $(SRC_DIR)/compiler_structs.h $(SRC_DIR)/stack.h $(SRC_DIR)/storage_controller.h
-$(OBJ_DIR)/compiler_structs.o: $(SRC_DIR)/compiler_structs.h
-$(OBJ_DIR)/stack.o: $(SRC_DIR)/stack.h
-$(OBJ_DIR)/storage_container.o: $(SRC_DIR)/storage_controller.h
+	rm -f $(OBJS) $(EXEC)
