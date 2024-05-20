@@ -301,12 +301,12 @@ bool stack_push_Token(Stack *stack, Token data) {
  *   stack - Pointer to the stack.
  *
  * Returns:
- *   Token popped from the stack; returns a Token with type TOK_INVALID if the stack is empty.
+ *   Token popped from the stack; returns a Token with type TOK_TOK_END_ARRAY if the stack is empty.
  */
 Token stack_pop_Token(Stack *stack) {
 
     Token result;
-    result.tokenType = TOK_INVALID;
+    result.tokenType = TOK_END_ARRAY;
 
 
 
