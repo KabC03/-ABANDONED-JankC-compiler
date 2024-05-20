@@ -1,112 +1,330 @@
 #include "stack.h"
 
 
+
+
 /*
- * Function: print_stack
- * ----------------------
- * Prints the contents of the stack from the top to the bottom.
- * Each stack node's ID is printed in order. An empty stack will display "empty".
+ * Function: stack_initialise
+ * --------------------------
+ * Initializes a stack to an empty state.
  *
- * head: Pointer to the top node of the stack.
+ * Parameters:
+ *   stack - Pointer to the stack to be initialized.
+ *
+ * Note:
+ *   This function should be called before any other operations on the stack.
  */
-void print_stack(StackNode *head) {
+void stack_initialise(Stack *stack) {
+    (*stack).head = NULL;
+    return;
+}
 
-    printf(" ┌───────┐\n");
-    if(head == NULL) {
-        printf(" │ empty │\n");
-    } else {
-        while(head != NULL) {
-            printf(" │  %2zu   │\n", head->ID);
-            head = head->nextPtr;
-            printf(" ├───────┤\n");
-        }
 
+
+
+/*
+ * Function: push_generic
+ * ----------------------
+ * (Internal Use Only) Pushes a new data element onto the stack. This function allocates a new StackNode and a buffer
+ * for data, copies the given data into the new buffer, and links the new node into the stack.
+ *
+ * Parameters:
+ *   stack - Pointer to the stack.
+ *   data - Pointer to the data to be pushed onto the stack.
+ *   dataSize - Size of the data to be pushed.
+ *
+ * Returns:
+ *   true if the data was successfully pushed, false if memory allocation failed.
+ *
+ * Note:
+ *   Users should never call this function directly. Instead, use stack_push_size_t or stack_push_Token.
+ */
+bool push_generic(Stack *stack, void *data, size_t dataSize) {
+
+    if(stack == NULL || data == NULL) return false;
+
+    StackNode *newNode = (StackNode*)malloc(sizeof(StackNode));
+    if(newNode == NULL) return false;
+
+
+    newNode->data = (void*)malloc(dataSize);
+    if(newNode->data == NULL) {
+        free(newNode);
+        return false;
     }
 
+    memcpy(newNode->data, data, dataSize);
+
+
+    newNode->nextPtr = stack->head;
+    stack->head = newNode;
+
+    return true;
+}
+
+
+/*
+ * Function: pop_generic
+ * ---------------------
+ * (Internal Use Only) Pops the top data element from the stack. This function removes the top stack node, retrieves
+ * its data, and frees the node. The caller is responsible for freeing the returned data.
+ *
+ * Parameters:
+ *   stack - Pointer to the stack.
+ *
+ * Returns:
+ *   Pointer to the data of the popped element, or NULL if the stack is empty.
+ *
+ * Note:
+ *   Users should never call this function directly. Instead, use stack_pop_size_t or stack_pop_Token.
+ */
+void* pop_generic(Stack *stack) {
+
+    void *result = NULL;
+    if(stack == NULL) return NULL; //Temporary
+
+    if(stack->head == NULL) {
+
+    } else {
+        result = stack->head->data;
+        if(result == NULL) return NULL; //Something went wrong - return -1 for now
+        
+        StackNode *freeNode = stack->head;
+        stack->head = stack->head->nextPtr;
+        free(freeNode);
+    }
+
+    return result; //User must free this pointer
+}
+
+
+/*
+ * Function: destroy_generic
+ * -------------------------
+ * (Internal Use Only) Destroys a stack, freeing all of its elements and the data they contain.
+ *
+ * Parameters:
+ *   stack - Pointer to the stack.
+ *
+ * Returns:
+ *   true if the stack was successfully destroyed, false otherwise (e.g., if the stack was NULL).
+ *
+ * Note:
+ *   Users should never call this function directly. Instead, use stack_destroy_size_t or stack_destroy_Token.
+ */
+bool destroy_generic(Stack *stack) {
+
+    if(stack == NULL) return false; //Should NEVER happen
+
+    if(stack->head == NULL) {
+
+    } else {
+
+        while(stack->head != NULL) {
+            void *data = stack->head->data;
+            StackNode *freeNode = stack->head;
+            stack->head = stack->head->nextPtr;
+            free(freeNode);
+
+            if(data != NULL) free(data); //Data should NEVER be NULL - but checking just incase
+
+        }
+    }
+
+    return true;
+}
+
+
+
+
+/*
+ * Function: stack_print_size_t
+ * ----------------------------
+ * Prints the contents of the stack for debugging purposes, displaying size_t values.
+ *
+ * Parameters:
+ *   stack - Pointer to the stack to be printed.
+ */
+void stack_print_size_t(Stack *stack) {
+
+    void *resultPtr = NULL;
+    size_t result = 0;
+    printf(" ┌───────┐\n");
+    while(1) {
+        resultPtr = pop_generic(stack);
+        if(resultPtr == NULL) break;
+
+        result = *((size_t*)(resultPtr));
+        free(resultPtr);
+        printf(" │  %2zu   │\n", result);
+        printf(" ├───────┤\n");
+    }
     printf(" └───────┘\n");
+
     return;
 }
 
 
 /*
- * Function: push_stack
- * ---------------------
- * Pushes a new value onto the stack. This function allocates a new StackNode,
- * assigns it the given value, and adjusts the stack pointers.
+ * Function: stack_push_size_t
+ * ---------------------------
+ * Pushes a size_t value onto the stack.
  *
- * head: A pointer to the pointer of the top node of the stack.
- * newValue: The new value to be pushed onto the stack.
+ * Parameters:
+ *   stack - Pointer to the stack.
+ *   data - size_t value to push.
  *
- * Returns: true if the node was successfully pushed, false if allocation failed.
+ * Returns:
+ *   true if the value was successfully pushed, false otherwise.
  */
-bool push_stack(StackNode **head, size_t newValue) {
+bool stack_push_size_t(Stack *stack, size_t data) {
 
-    if(head == NULL) return false;
-    StackNode *newNode = malloc(sizeof(StackNode));
-    if(newNode == NULL) return false;
-    newNode->ID = newValue;
-    newNode->nextPtr = *head;
-    *head = newNode;
+    if(push_generic(stack, &data, sizeof(data)) == false) return false;
 
     return true;
 }
 
 
 /*
- * Function: pop_stack
- * --------------------
- * Pops the top value from the stack and returns it. This function removes the top node
- * of the stack, retrieves its value, frees the node, and adjusts the stack's top pointer.
+ * Function: stack_pop_size_t
+ * --------------------------
+ * Pops a size_t value from the stack.
  *
- * head: A pointer to the pointer of the top node of the stack.
+ * Parameters:
+ *   stack - Pointer to the stack.
  *
- * Returns: The ID of the popped node if successful, -1 if the stack is empty or head is NULL.
+ * Returns:
+ *   size_t value popped from the stack; returns (size_t)-1 if the stack is empty.
  */
-size_t pop_stack(StackNode **head) {
-    if(head == NULL) return -1;
-    else if(*head == NULL) return -1; // Return max value on failure, interpreted as -1 for size_t
+size_t stack_pop_size_t(Stack *stack) {
 
-    size_t returnVal = (*head)->ID;
-    StackNode *freePtr = (*head);
-    *head = (*head)->nextPtr;
-    free(freePtr);
+    void *resultPtr = pop_generic(stack);
+    if(resultPtr == NULL) return -1; //Temporary
+    size_t result = *((size_t*)(resultPtr));
+    free(resultPtr);
 
-    return returnVal;
+    return result;  
 }
 
 
 /*
- * Function: destroy_stack
- * ------------------------
- * Frees all nodes in the stack and sets the stack's head to NULL.
- * This function iterates through the stack and frees each node.
+ * Function: stack_destroy_size_t
+ * ------------------------------
+ * Destroys a stack that contains size_t values, freeing all nodes and their data.
  *
- * head: A pointer to the pointer of the top node of the stack.
- *
- * Returns: true if the stack was successfully destroyed, false if the input was NULL.
+ * Parameters:
+ *   stack - Pointer to the stack.
  */
-bool destroy_stack(StackNode **head) {
+void stack_destroy_size_t(Stack *stack) {
 
-    if(head == NULL) return false;
-    if(*head == NULL) return false; //Stack empty already
+    destroy_generic(stack);
+}
 
-    StackNode *currentPtr = (*head);
-    StackNode *prevPtr = (*head);
-    while(currentPtr != NULL) {
 
-        currentPtr = currentPtr->nextPtr;
-        free(prevPtr);
-        prevPtr = currentPtr;
+
+
+
+
+
+
+//Tokens
+
+
+/*
+ * Function: stack_print_size_t
+ * ----------------------------
+ * Prints the contents of the stack for debugging purposes, displaying size_t values.
+ *
+ * Parameters:
+ *   stack - Pointer to the stack to be printed.
+ */
+void stack_print_Token(Stack *stack) {
+
+    void *resultPtr = NULL;
+    Token result;
+
+    printf(" ┌───────┐\n");
+    while(1) {
+        resultPtr = pop_generic(stack);
+        if(resultPtr == NULL) break;
+
+        result = *((Token*)(resultPtr));
+        free(resultPtr);
+        printf(" │  %2d   │\n", result.tokenType);
+        printf(" ├───────┤\n");
     }
+    printf(" └───────┘\n");
+
+    return;
+}
+
+
+
+/*
+ * Function: stack_push_Token
+ * --------------------------
+ * Pushes a Token onto the stack.
+ *
+ * Parameters:
+ *   stack - Pointer to the stack.
+ *   data - Token to push.
+ *
+ * Returns:
+ *   true if the Token was successfully pushed, false otherwise.
+ */
+bool stack_push_Token(Stack *stack, Token data) {
+
+    if(push_generic(stack, &data, sizeof(data)) == false) return false;
 
     return true;
 }
 
 
 
+/*
+ * Function: stack_pop_Token
+ * -------------------------
+ * Pops a Token from the stack.
+ *
+ * Parameters:
+ *   stack - Pointer to the stack.
+ *
+ * Returns:
+ *   Token popped from the stack; returns a Token with type TOK_INVALID if the stack is empty.
+ */
+Token stack_pop_Token(Stack *stack) {
+
+    Token result;
+    result.tokenType = TOK_INVALID;
 
 
 
+    void *resultPtr = pop_generic(stack);
+    if(resultPtr == NULL) return result; //Return invalid token
+
+
+
+    result = *((Token*)(resultPtr));
+    free(resultPtr);
+
+
+
+    return result;  
+}
+
+
+/*
+ * Function: stack_destroy_Token
+ * -----------------------------
+ * Destroys a stack that contains Tokens, freeing all nodes and their data.
+ *
+ * Parameters:
+ *   stack - Pointer to the stack.
+ */
+void stack_destroy_Token(Stack *stack) {
+
+    destroy_generic(stack);
+}
 
 
 
