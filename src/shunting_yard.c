@@ -2,7 +2,39 @@
 
 
 
-
+/*
+ * Function: shunting_yard
+ * -----------------------
+ * Converts an array of tokens from infix notation to postfix notation using the Shunting Yard algorithm 
+ * developed by Edsger Dijkstra. This function processes operands, operators, and parentheses from the 
+ * input token array and organizes them into a postfix format using two stacks to handle operator precedence 
+ * and parentheses grouping. The function treats functions as operators, integrating them seamlessly into 
+ * the output based on their precedence.
+ *
+ * Parameters:
+ *   tokenArray - Pointer to an array of Token structures representing the infix expression. The array 
+ *                must end with a token of type TOK_END_ARRAY.
+ *
+ * Returns:
+ *   Stack - Returns a stack containing the tokens in postfix order. If an error occurs, such as invalid 
+ *           token processing or memory allocation failure, a failureStack initialized to an empty state 
+ *           is returned.
+ *
+ * Usage:
+ *   Token inputTokens[] = {
+ *     {TOK_INT, TOK_VARIABLE, .TokenContent.intImmediate=3}, 
+ *     {TOK_ADD, TOK_OPERATOR}, 
+ *     {TOK_INT, TOK_VARIABLE, .TokenContent.intImmediate=5}, 
+ *     {TOK_END_ARRAY}
+ *   };
+ *   Stack resultStack = shunting_yard(inputTokens);
+ *   // Process the resultStack as needed for evaluation or further compilation tasks.
+ *
+ * Note:
+ *   This function assumes that the input token array is syntactically correct and properly terminated.
+ *   It handles memory internally but depends on proper initializations provided by stack_initialise and 
+ *   relies on stack operations such as stack_push_Token and stack_pop_Token from 'stack.h'.
+ */
 Stack shunting_yard(Token *tokenArray) {
 
     Stack failureStack;
