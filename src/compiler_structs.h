@@ -17,6 +17,8 @@
 #define COMPILER_STRUCTS_H 
 #include <stddef.h>
 
+
+
 typedef enum OPERATOR_PRECEDENCE {
     //Lower values indicate lower presedence
     //Used in shunting yard algorithm
@@ -33,13 +35,12 @@ typedef enum OPERATOR_PRECEDENCE {
 } OPERATOR_PRECEDENCE;
 
 
-
-
 typedef enum TOKEN_TYPE {
 
     //Tokenisation
     TOK_INVALID,
     TOK_END_ARRAY, //End of array - equivelant to '\0'
+
 
     //Token types
     TOK_IMMEDIATE,
@@ -48,6 +49,8 @@ typedef enum TOKEN_TYPE {
     TOK_OPERATOR, // '+', '-', etc (INCLUDES FUNCTIONS)
     TOK_CURVED_BRACE, // '(' and ')' ONLY
     TOK_COMPARATOR, //'!=', '==', '>=', etc
+
+
 
     //Datatypes
     TOK_INT,
