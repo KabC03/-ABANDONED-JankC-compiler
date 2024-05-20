@@ -40,13 +40,7 @@
 
 
 //User should never see this
-typedef struct StackNode {
-
-    void *data;
-    struct StackNode *nextPtr;
-
-} StackNode;
-
+typedef struct StackNode StackNode; //Opaque pointer
 
 typedef struct Stack {
 
@@ -78,6 +72,3 @@ void stack_print_Token(Stack *stack);
 
 
 #endif // STACK_H
-
-
-
