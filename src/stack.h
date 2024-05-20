@@ -21,6 +21,11 @@
  * - `stack_print_size_t` and `stack_print_Token` can be used to debug or verify the stack's contents.
  * - Use `stack_destroy_size_t` and `stack_destroy_Token` to properly free memory associated with stack items
  *   when the stack is no longer needed or before the compiler resets its state.
+ *
+ * Note:
+ * The internal structure of the stack is hidden from the user. Users should only interact with the stack through 
+ * the provided functions for specific data types. Generic stack functions and internal structures are not visible 
+ * outside this module.
  */
 
 #ifndef STACK_H
