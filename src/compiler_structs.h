@@ -23,7 +23,7 @@ typedef enum TOKEN_TYPE {
     TOK_INVALID,
     TOK_END_ARRAY, //End of array - equivelant to '\0'
 
-    //Variable types
+    //Token types
     TOK_IMMEDIATE,
     TOK_FUNCTION_NAME,
     TOK_VARIABLE,
