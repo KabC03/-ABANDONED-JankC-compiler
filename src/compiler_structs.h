@@ -55,6 +55,7 @@ typedef enum TOKEN_TYPE {
 
 
     //Datatypes
+    TOK_NOT_DATATYPE,
     TOK_VOID,
     TOK_INT,
     TOK_FLOAT,
@@ -125,7 +126,7 @@ typedef enum TOKEN_TYPE {
 typedef struct Token {
 
     enum TOKEN_TYPE tokenType; //Actual token itself (for, while, variable, immediate, etc)
-    enum TOKEN_TYPE dataType; //float/char/symbol/operator/comparator/etc
+    enum TOKEN_TYPE dataType; //float/char/symbol/operator/comparator/etc. TOK_NOT_DATATYPE for for,while,etc
 
     size_t arraySize; //If this is an array - specify its size - if not set to 0
 
