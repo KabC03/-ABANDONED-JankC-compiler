@@ -15,7 +15,7 @@
  * @param character The character to be evaluated.
  * @return true if the character is a symbol, indicating a special token; false if it is alphanumeric or other non-symbolic character.
  */
-bool is_symbol(char character) {
+bool is_expected_symbol(char character) {
     //Check for symbols - SHOULD NOT check for '.'
     //If symbol - check if next character is symbol also
     //If its not then stop tokenising current block
@@ -570,7 +570,7 @@ Token assign_properties(char *buffer) {
 
 /**
  * Tokenizes a given input line into a dynamic array of tokens.
- * The function processes the input line character by character, and uses the `is_symbol`
+ * The function processes the input line character by character, and uses the `is_expected_symbol`
  * function to determine when a token ends. Each token is processed and properties are assigned
  * using `assign_properties`. Memory for tokens and the buffer is dynamically managed.
  *
@@ -618,9 +618,9 @@ Token *tokenise(char *inputLine) {
 
         buffer[j] = inputLine[i];
 
-        if(is_symbol(inputLine[i]) == true) { //Symbol detected - if next character isnt symbol or space then stop tokenising this block
+        if(is_expected_symbol(inputLine[i]) == true) { //Symbol detected - if next character isnt symbol or space then stop tokenising this block
 
-            if(is_symbol(inputLine[i + 1]) == true || inputLine[i + 1] == ' ') {
+            if(is_expected_symbol(inputLine[i + 1]) == true || inputLine[i + 1] == ' ') {
 
                 j++;
                 i++;
@@ -645,7 +645,7 @@ Token *tokenise(char *inputLine) {
 
         } else { //Var/immediate detected - if next character is symbol or space stop tokenising this block
 
-            if(is_symbol(inputLine[i + 1]) == false || inputLine[i + 1] == ' ') {
+            if(is_expected_symbol(inputLine[i + 1]) == false || inputLine[i + 1] == ' ') {
 
                 j++;
                 i++;
