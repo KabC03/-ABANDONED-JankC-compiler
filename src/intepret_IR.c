@@ -4,20 +4,38 @@
 #define BYTE 1
 
 
-bool initialise_virtual_machine(VirtualMachine *VMout, size_t RAMsize, size_t numRegisters) {
 
-    VMout->numRegisters = numRegisters;
-    VMout->RAMsize = RAMsize;
-    VMout->programCounter = 0;
 
-    VMout->registerArray = (void*)malloc(BYTE * numRegisters); 
-    VMout->ramArray = (void*)malloc(BYTE * RAMsize);
+typedef struct {
+    void *registerArray;
+    size_t numRegisters;
 
-    if(VMout->registerArray == NULL || VMout->ramArray == NULL) {
-        if(VMout->ramArray == NULL) {
-            free(VMout->registerArray);
-        } else if(VMout->registerArray == NULL){
-            free(VMout->ramArray);
+    void *ramArray;
+    size_t RAMsize;
+
+    size_t programCounter; // Indexes BITS
+} VirtualMachine;
+
+
+
+//Only ONE VM exists - allow for better encapsulation
+VirtualMachine VM;
+
+
+bool initialise_virtual_machine(size_t RAMsize, size_t numRegisters) {
+
+    VM.numRegisters = numRegisters;
+    VM.RAMsize = RAMsize;
+    VM.programCounter = 0;
+
+    VM.registerArray = (void*)malloc(BYTE * numRegisters); 
+    VM.ramArray = (void*)malloc(BYTE * RAMsize);
+
+    if(VM.registerArray == NULL || VM.ramArray == NULL) {
+        if(VM.ramArray == NULL) {
+            free(VM.registerArray);
+        } else if(VM.registerArray == NULL){
+            free(VM.ramArray);
         } else {
             //Should never happen but left here for readability
         }
@@ -29,6 +47,20 @@ bool initialise_virtual_machine(VirtualMachine *VMout, size_t RAMsize, size_t nu
 
 
 
+
+
+
+
+bool run_virtual_machine(void) {
+
+
+
+
+
+
+
+    return true;
+}
 
 
 
