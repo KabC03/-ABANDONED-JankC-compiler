@@ -12,3 +12,25 @@ Have option to intepret IR or compile it to asm for CPU
 Check tokenser works
 
 MAKE SURE TOKENISER DOES NOT ALLOW any '|' TO END UP IN OUTPUT TOKENS - THROW SYNTAX ERROR. OTHERWISE THIS WILL MESS UP IR GENERATOR WHICH USES ||| AS DELIMETER
+
+VM - Continue working on it
+
+
+
+TODO order:
+
+VM - finish completely
+Parser - Get working
+
+Architecture specific assembler - Get working
+Put it all together in main.c
+
+
+Then go back and make sure everything works
+
+
+
+
+
+
+
