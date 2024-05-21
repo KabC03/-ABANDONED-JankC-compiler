@@ -14,58 +14,69 @@
 #include <stdbool.h>
 #include <string.h>
 #include <ctype.h>
+#include <time.h>
+#include "stack.h"
 
 typedef struct VirtualMachine VirtualMachine;
+
+
+
+bool initialise_virtual_machine(size_t RAMsize, size_t numRegisters, size_t instructionsPerSecond);
+bool run_virtual_machine(char *IRCodePath);
+
+
+
+
 
 
 
 
 #endif 
 
-
 /*
 Syntax List
 
-[OPERATION] Rdest Rsource Rsource
+Note: '|||' is used to break up tokens for easier parsing.
+Note:  Register numbers are just numbers, not R1/R2/etc - just enter 1/2 instead
+
+[OPERATION]|||Rdest|||Rsource|||Rsource|||
 
     - Perform the operation on Rsources and place the result in Rdest.
     - Operations can be ADD, SUB, MUL, DIV.
     - _F variants (e.g., ADD_F) are used for floating point calculations.
 
-[OPERATION] Rdest Rsource immediate
+[OPERATION]|||Rdest|||Rsource|||[IMMEDIATE]|||
 
     - Perform the operation on Rsource and the immediate value, then place the result in Rdest.
     - Operations can be ADI (add immediate), SUI (subtract immediate), MUI (multiply immediate), DII (divide immediate).
     - _F variants (e.g., ADI_F) are used for floating point calculations.
 
-[OPERATION] Rptr Rdest [Xitems]
+[OPERATION]|||Rptr|||Rdest|||[Xitems]|||
 
-    - Perform memory operations: S for store and R for read.
+    - Perform memory operations: STR for store and REA for read.
     - Load/Store item from/to memory address (held in Rptr) into/from Rdest.
     - X is a number specifying the number of bytes to read/write from Rptr (should be less than 5 on 64-bit systems).
 
-[OPERATION] R1 R2 [LABEL]
+[OPERATION]|||R1|||R2|||[LABEL]|||
 
     - Compare R1 and R2 with an operation and jump to [LABEL] if the condition is true.
     - Operations: GRT (greater), GRE (greater or equal), LES (less), LEQ (less or equal), EQU (equal), NEQ (not equal).
 
-JMP [LABEL]
+JMP|||[LABEL]|||[]|||[]|||
 
     - Unconditionally jump to [LABEL].
 
-JAL [LABEL]
+JAL|||[LABEL]|||[]|||[]|||
 
     - Jump to [LABEL] and link the return address on the stack.
 
-JRT
+JRT|||[]|||[]|||[]|||
 
     - Jump to the return address stored on the stack by JAL.
 
-NOP
+NOP|||[]|||[]|||[]|||
 
     - No operation. Used to consume some amount of instruction cycles to implement sleep based on the VM's clock cycle.
-
-
 
 IMPORTANT NOTE:
     - FUNCTION ARGUMENTS ARE ALWAYS PASSED BY REFERENCE, NOT PLACED ON THE STACK.
@@ -75,16 +86,16 @@ IMPORTANT NOTE:
     - Print prints to the terminal using printf.
 
 VM Notes:
-    - The VM inteprets the IR as its own assembly
+    - The VM interprets the IR as its own assembly.
     - The VM has its own memory and registers.
     - Allocation and freeing of memory are done using VM-specific instructions, not malloc/free.
     - All VM items (variables, data) are stored in the VM's memory.
     - Read reads from the interpreter terminal using scanf and moves the input to a dedicated input register.
     - Print prints a single character to the interpreter terminal.
     - The VM does not store anything other than function addresses on the stack. All function calls receive arguments by reference.
-    - The stack starts at the end of the allocated heap (e.g if memory is 64 bytes, then stack starts at byte 64 and grows backwards)
-    - Program counter indexes BITS not BYTES
-    - Instruction size is 4x sizeof(long long int)
+    - The stack starts at the end of the allocated heap (e.g., if memory is 64 bytes, then the stack starts at byte 64 and grows backwards).
+    - Program counter indexes BITS not BYTES.
+    - Instruction size is 4x sizeof(long long int):
         - 1: instruction
         - 2: R1
         - 3: R2
