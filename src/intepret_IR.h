@@ -84,4 +84,9 @@ VM Notes:
     - The VM does not store anything other than function addresses on the stack. All function calls receive arguments by reference.
     - The stack starts at the end of the allocated heap (e.g if memory is 64 bytes, then stack starts at byte 64 and grows backwards)
     - Program counter indexes BYTES not bits
+    - Instruction size is 4x sizeof(long long int)
+        - 1: instruction
+        - 2: R1
+        - 3: R2
+        - 4: R3/Label
 */
