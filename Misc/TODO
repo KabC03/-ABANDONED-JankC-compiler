@@ -9,5 +9,5 @@ Shunting yard - fix intepretation of Stack return values
 
 Have option to intepret IR or compile it to asm for CPU
 
-
+Check tokenser works
 
