@@ -44,7 +44,8 @@ typedef enum TOKEN_TYPE {
 
 
     //Token datatype (second field in Token struct)
-    TOK_FUNC, //call/return
+    TOK_INBUILD_FUNC, //allocate/free/etc
+    TOK_USER_FUNC, //call/return
     TOK_LOOP, //for/while/etc
     TOK_DEC, //'=' assignments
     TOK_DEC_MODIFIER, //char, float, void, long, ptr, etc
