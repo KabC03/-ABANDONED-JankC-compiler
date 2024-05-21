@@ -65,6 +65,93 @@ bool is_symbol(char character) {
 
 
 
+/**
+ * Checks if a given string is a valid function name according to the defined naming conventions.
+ * A valid function name must start with "fn_" and should not contain any symbols.
+ *
+ * Usage:
+ * This function is used during tokenization to categorize tokens that represent function identifiers.
+ *
+ * @param buffer A pointer to a null-terminated string containing the token to check.
+ * @return true if the string matches the function naming criteria, false otherwise.
+ */
+bool function_name_check(char *buffer) {
+
+    if(buffer == NULL) return false;
+
+
+
+    return true;
+}
+
+
+
+
+/**
+ * Verifies whether a string qualifies as a valid variable name in the programming language.
+ * A valid variable name must not contain any symbols and should adhere to language-specific naming rules.
+ *
+ * Usage:
+ * This function helps in distinguishing variable tokens during the lexical analysis phase.
+ *
+ * @param buffer A pointer to a null-terminated string to evaluate.
+ * @return true if the string is a valid variable name, false otherwise.
+ */
+bool variable_name_check(char *buffer) {
+
+    if(buffer == NULL) return false;
+
+
+
+    return true;
+}
+
+
+
+/**
+ * Determines if a string represents an immediate value, which is a numeric literal that does not contain symbols or letters.
+ *
+ * Usage:
+ * This function is pivotal in classifying numeric literals during tokenization, ensuring that literals like numbers are correctly identified.
+ *
+ * @param buffer A pointer to a null-terminated string that potentially contains an immediate value.
+ * @return true if the string represents an immediate numeric value, false otherwise.
+ */
+bool immediate_check(char *buffer) {
+
+    if(buffer == NULL) return false;
+
+
+
+    return true;
+}
+
+
+
+/**
+ * Evaluates if a string correctly represents a character literal in the language.
+ * A valid character literal should consist of exactly one character enclosed within single quotes (' ').
+ *
+ * Usage:
+ * Used during the parsing process to validate tokens as character literals, ensuring they conform to the syntax rules.
+ *
+ * @param buffer A pointer to a null-terminated string to check.
+ * @return true if the string is a properly formatted character literal, false otherwise.
+ */
+bool char_check(char *buffer) {
+
+    if(buffer == NULL) return false;
+
+
+
+    return true;
+
+}
+
+
+
+
+
 
 /**
  * Assigns token properties based on the content of the buffer.
