@@ -169,7 +169,7 @@ Token assign_properties(char *buffer) {
 Token *tokenise(char *inputLine) {
 
     Token *tokensOut = NULL; //Array of tokens
-
+    size_t tokensOutSize = 0;
 
     //Dynamic array
     char *buffer = NULL;
@@ -177,8 +177,9 @@ Token *tokenise(char *inputLine) {
 
 
 
-    int i = 0;
-    int j = 0;
+    int i = 0; //Iterate through inputLine
+    int j = 0; //Assign to buffer
+    int k = 0; //Assign to tokensOut
     Token tokenOut;
     tokenOut.tokenType = TOK_INVALID;
 
@@ -187,8 +188,19 @@ Token *tokenise(char *inputLine) {
         //Check if buffer needs to be expanded
         if((bufferSize - 1) % j == 0) { //Allocate memory when 1 byte away from reaching end - allows space of '\0'
             buffer = realloc(buffer, bufferSize + BUFFER_EXPANSION);
+            if(buffer == NULL) return NULL;
+
             bufferSize += BUFFER_EXPANSION;
         }
+
+
+        if((tokensOutSize) % k == 0) { 
+            tokensOut = realloc(tokensOut, tokensOutSize + BUFFER_EXPANSION);
+            if(tokensOut == NULL) return NULL;
+
+            tokensOutSize += BUFFER_EXPANSION;
+        }
+        
 
 
         buffer[j] = inputLine[i];
@@ -209,10 +221,13 @@ Token *tokenise(char *inputLine) {
                 //Then assign propertiess
                 tokenOut = assign_properties(buffer);
 
-                if(tokenOut.dataType = TOK_INVALID) {
+                if(tokenOut.dataType == TOK_INVALID) {
                     //Unrecognised token
                     break;
                 } 
+                tokensOut[k] = tokenOut;
+                k++;
+
             }
 
         } else { //Var/immediate detected - if next character is symbol or space stop tokenising this block
@@ -234,14 +249,17 @@ Token *tokenise(char *inputLine) {
 
                 tokenOut = assign_properties(buffer);
 
-                if(tokenOut.dataType = TOK_INVALID) {
+                if(tokenOut.dataType == TOK_INVALID) {
                     //Unrecognised token
                     break;
                 } 
+                tokensOut[k] = tokenOut;
+                k++;
                 
             }
 
         }
+
 
     }
 
