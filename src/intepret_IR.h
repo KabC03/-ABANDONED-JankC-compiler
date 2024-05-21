@@ -90,8 +90,8 @@ VM Notes:
     - The VM has its own memory and registers.
     - Allocation and freeing of memory are done using VM-specific instructions, not malloc/free in the intepreter.
     - All VM items (variables, data) are stored in the VM's memory.
-    - Read reads from the interpreter terminal using scanf and moves the input to a dedicated input register.
-    - Print prints a single character to the interpreter terminal.
+    - Read reads from the interpreter terminal using scanf and moves the input to a dedicated input register (using scanf).
+    - Print prints a single character to the interpreter terminal (using printf).
     - The VM does not store anything other than function addresses on the stack. All function calls receive arguments by reference.
     - The stack starts at the end of the allocated heap (e.g., if memory is 64 bytes, then the stack starts at byte 64 and grows backwards).
     - Program counter indexes BITS not BYTES.
