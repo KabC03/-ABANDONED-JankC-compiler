@@ -20,7 +20,8 @@ const char* const validTokens[] = {
     "call", "return",                                  // Function calls and returns
     "read", "output", "allocate", "free", "sleep", // Built-in functions
     "[", "]", "{", "}", "(", ")", ",", ";", "@", "$",  // Punctuation and special symbols
-    "/*", "#"                                          // Comment delimiters
+    "/*", "#",                                          // Comment delimiters
+    "\0"                                                //Indicate end of token list - not a valid symbol
 };
 
 /*
