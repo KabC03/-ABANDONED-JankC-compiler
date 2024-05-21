@@ -15,7 +15,7 @@
 #include <string.h>
 #include <ctype.h>
 
-
+typedef struct VirtualMachine VirtualMachine;
 
 
 
@@ -83,4 +83,5 @@ VM Notes:
     - Print prints a single character to the interpreter terminal.
     - The VM does not store anything other than function addresses on the stack. All function calls receive arguments by reference.
     - The stack starts at the end of the allocated heap (e.g if memory is 64 bytes, then stack starts at byte 64 and grows backwards)
+    - Program counter indexes BYTES not bits
 */
