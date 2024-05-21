@@ -43,7 +43,7 @@ typedef enum TOKEN_TYPE {
     TOK_END_ARRAY, //End of array - equivelant to '\0'
 
 
-    //Token types
+    //Token datatype (second field in Token struct)
     TOK_DEC_MODIFIER, //char, float, void, long, ptr, etc
     TOK_IMMEDIATE,
     TOK_FUNCTION_NAME,
