@@ -6,15 +6,14 @@
 
 
 typedef struct {
+    size_t instructionsPerSecond;  ///< The number of instructions the VM can execute per second.
+    void *registerArray;           ///< Pointer to the array of registers.
+    size_t numRegisters;           ///< Number of registers in the register array.
 
-    size_t instructionsPerSecond;
-    void *registerArray;
-    size_t numRegisters;
-
-    void *ramArray;
-    size_t RAMsize;
-
-    size_t programCounter; // Indexes BITS
+    void *ramArray;                ///< Pointer to the array representing the VM's RAM.
+    size_t RAMsize;                ///< Size of the RAM array.
+    
+    size_t programCounter;         ///< Index of the current instruction in the instruction set.
 } VirtualMachine;
 
 
@@ -24,38 +23,42 @@ typedef struct {
 
 
 typedef enum VALID_INSTRUCTIONS {
-
-    INVALID, //Intepreter use only - not part of instruction set
-
-    ADD,
-    SUB,
-    MUL,
-    DIV,
-
-    STR,
-    LOD,
-
-    GRT,
-    GRE,
-    LTE,
-    LES,
-    EQU,
-    NEQ,
-    JMP,
-    
-    JAL,
-    JRT,
-
-    NOP,
-
+    INVALID,  ///< Interpreter use only - not part of instruction set
+    ADD,      ///< Add instruction
+    SUB,      ///< Subtract instruction
+    MUL,      ///< Multiply instruction
+    DIV,      ///< Divide instruction
+    STR,      ///< Store instruction
+    LOD,      ///< Load instruction
+    GRT,      ///< Greater than instruction
+    GRE,      ///< Greater than or equal instruction
+    LTE,      ///< Less than or equal instruction
+    LES,      ///< Less than instruction
+    EQU,      ///< Equal instruction
+    NEQ,      ///< Not equal instruction
+    JMP,      ///< Jump instruction
+    JAL,      ///< Jump and link instruction
+    JRT,      ///< Jump return instruction
+    NOP       ///< No operation instruction
 } VALID_INSTRUCTIONS;
 
 
 
-//Only ONE VM exists - allow for better encapsulation
+// Only ONE VM exists - allow for better encapsulation
 VirtualMachine VM;
 
 
+
+/**
+ * @brief Initialize the virtual machine with the specified RAM size, number of registers, and instructions per second.
+ *
+ * This function allocates memory for the register array and RAM array, and sets the program counter to 0.
+ *
+ * @param RAMsize Size of the RAM array to allocate.
+ * @param numRegisters Number of registers to allocate in the register array.
+ * @param instructionsPerSecond Number of instructions the VM can execute per second.
+ * @return true if initialization is successful, false otherwise.
+ */
 bool initialise_virtual_machine(size_t RAMsize, size_t numRegisters, size_t instructionsPerSecond) {
 
     VM.numRegisters = numRegisters;
@@ -87,7 +90,15 @@ bool initialise_virtual_machine(size_t RAMsize, size_t numRegisters, size_t inst
 
 
 
-
+/**
+ * @brief Run the virtual machine using the instructions from the specified IR code file.
+ *
+ * This function opens the specified IR code file, reads and tokenizes instructions, and executes them accordingly.
+ * If an error occurs during file opening, tokenization, or execution, it prints an error message and returns false.
+ *
+ * @param IRCodePath Path to the IR code file.
+ * @return true if the VM runs successfully, false otherwise.
+ */
 bool run_virtual_machine(char *IRCodePath) { //NOTE - MAKE ERROR CODES BETTER - USE AN ENUM AS PLANNED IN OTHER FILES TO INDICATE ERROR CODE
 
     FILE *inputFile = fopen(IRCodePath, "r");
