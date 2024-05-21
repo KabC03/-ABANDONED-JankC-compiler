@@ -57,6 +57,8 @@ typedef enum TOKEN_TYPE {
     TOK_INT,
     TOK_FLOAT,
     TOK_CHAR,
+    TOK_LONG,
+    TOK_UNSIGNED,
     TOK_ARRAY,
     TOK_POINTER,
 
