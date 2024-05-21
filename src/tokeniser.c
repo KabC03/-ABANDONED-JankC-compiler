@@ -3,6 +3,7 @@
 
 
 /**
+ * WARNING - does not check ALL symbols - DO NOT USE FOR THIS PURPOSE. E.g doesnt check for '.', '|', etc
  * Evaluates whether a character is considered a symbol within the context of the tokenizer.
  * Symbols include special characters that could denote operators, punctuation, or other significant tokens in the language syntax.
  * 
@@ -15,7 +16,7 @@
  * @return true if the character is a symbol, indicating a special token; false if it is alphanumeric or other non-symbolic character.
  */
 bool is_symbol(char character) {
-    //Check for symbols
+    //Check for symbols - SHOULD NOT check for '.'
     //If symbol - check if next character is symbol also
     //If its not then stop tokenising current block
 
@@ -37,6 +38,7 @@ bool is_symbol(char character) {
     case '[':
     case ']':
     case ',':
+    //case '.': //IGNORE DECIMALS
 
     case '=':
     case '>':
@@ -79,10 +81,18 @@ bool function_name_check(char *buffer) {
 
     if(buffer == NULL) return false;
 
+    char fnSubstring[] = "fn_";
 
 
-    return true;
+    //Check at least 3 characters are present (3 for fn_ and a function name at least 1 chracter long)
+    if(strlen(buffer) < 4) return false;
+
+
+    if(strncmp(fnSubstring, buffer, strlen(fnSubstring)) == 0) return true;
+
+    return false;
 }
+
 
 
 
@@ -102,6 +112,17 @@ bool variable_name_check(char *buffer) {
     if(buffer == NULL) return false;
 
 
+    for(int i = 0; i < strlen(buffer) + 1; i++) {
+
+        if(i == 0) {
+            if(isdigit(buffer[0]) != 0) return false; //First character should not be number
+
+        } else if(isdigit(buffer) != 0 || isalpha(buffer) != 0) { //Expected a character or number
+
+            return false;
+        }
+
+    }
 
     return true;
 }
@@ -121,6 +142,24 @@ bool immediate_check(char *buffer) {
 
     if(buffer == NULL) return false;
 
+    bool seenDecimal = false;
+
+    for(int i = 0; i < strlen(buffer) + 1; i++) {
+
+        if(buffer[i] == '.' && seenDecimal == false) {
+
+            seenDecimal = true;
+
+        } else if(buffer[i] == '.' && seenDecimal == true) {
+            
+            return false; //Unexpeced '.'
+
+        } else if(isdigit(buffer[i]) != 0) {
+
+            return false; //Expected a digit, got something else
+        }
+
+    }
 
 
     return true;
@@ -142,9 +181,13 @@ bool char_check(char *buffer) {
 
     if(buffer == NULL) return false;
 
+    if(strlen(buffer) == 3) {
+
+        if(buffer[0] == '\'' && buffer[2] == '\'') return true; 
+    }
 
 
-    return true;
+    return false;
 
 }
 
