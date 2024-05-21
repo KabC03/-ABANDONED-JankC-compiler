@@ -643,7 +643,7 @@ Token *tokenise(char *inputLine) {
 
             }
 
-        } else { //Var/immediate detected - if next character is symbol or space stop tokenising this block
+        } else { //Var/immediate/function detected - if next character is symbol or space stop tokenising this block
 
             if(is_expected_symbol(inputLine[i + 1]) == false || inputLine[i + 1] == ' ') {
 
