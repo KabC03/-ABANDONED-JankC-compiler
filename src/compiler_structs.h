@@ -16,6 +16,7 @@
 #ifndef COMPILER_STRUCTS_H 
 #define COMPILER_STRUCTS_H 
 #include <stddef.h>
+#include <stdbool.h>
 
 
 
