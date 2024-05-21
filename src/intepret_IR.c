@@ -7,8 +7,7 @@ typedef struct VirtualMachine {
     void *registerArray;
     void *ramArray;
 
-
-
+    //Indexes BITS
     size_t programCounter;
 
 } VirtualMachine;
