@@ -54,6 +54,7 @@ typedef enum TOKEN_TYPE {
 
 
     //Datatypes
+    TOK_VOID,
     TOK_INT,
     TOK_FLOAT,
     TOK_CHAR,
@@ -82,6 +83,8 @@ typedef enum TOKEN_TYPE {
 
     //Constants
     TOK_NULL,
+    TOK_VAL_MAX,
+    TOK_VAL_MIN,
     // Operators
     TOK_ADD,            // '+'
     TOK_SUBTRACT,       // '-'
