@@ -3,11 +3,16 @@
 
 
 /**
- * Checks if a character is considered a symbol in the context of the tokenizer.
- * Symbols are special characters that might denote operators, punctuation, or other special tokens.
+ * Evaluates whether a character is considered a symbol within the context of the tokenizer.
+ * Symbols include special characters that could denote operators, punctuation, or other significant tokens in the language syntax.
+ * 
+ * The function aids in determining token boundaries based on the context:
+ * - If the previous character is alphanumeric and the current character is a symbol, this signifies the start of a new token block.
+ * - If the previous character is a symbol and the current character continues to be a symbol, the tokenization continues within the same block.
+ * - Conversely, if the current character is not a symbol following any character, it may indicate the start of a new token block.
  *
- * @param character The character to check.
- * @return true if the character is a symbol, false otherwise.
+ * @param character The character to be evaluated.
+ * @return true if the character is a symbol, indicating a special token; false if it is alphanumeric or other non-symbolic character.
  */
 bool is_symbol(char character) {
     //Check for symbols
@@ -79,94 +84,329 @@ Token assign_properties(char *buffer) {
         result.tokenType = TOK_END_ARRAY;
     } else if (strcmp(validTokens[0], buffer) == 0) { // Check 'void'
         // Handle 'void'
+        result.tokenType = TOK_VOID;
+        result.dataType = TOK_DEC_MODIFIER;
+        result.arraySize = 0;
+        result.TokenContent.variableID = 0;
+
+
     } else if (strcmp(validTokens[1], buffer) == 0) { // Check 'int'
         // Handle 'int'
+        result.tokenType = TOK_INT;
+        result.dataType = TOK_DEC_MODIFIER;
+        result.arraySize = 0;
+        result.TokenContent.variableID = 0;
+
     } else if (strcmp(validTokens[2], buffer) == 0) { // Check 'float'
         // Handle 'float'
+        result.tokenType = TOK_FLOAT;
+        result.dataType = TOK_DEC_MODIFIER;
+        result.arraySize = 0;
+        result.TokenContent.variableID = 0;
+
+
     } else if (strcmp(validTokens[3], buffer) == 0) { // Check 'char'
         // Handle 'char'
+        result.tokenType = TOK_CHAR;
+        result.dataType = TOK_DEC_MODIFIER;
+        result.arraySize = 0;
+        result.TokenContent.variableID = 0;
+
+
     } else if (strcmp(validTokens[4], buffer) == 0) { // Check 'long'
         // Handle 'long'
+        result.tokenType = TOK_LONG;
+        result.dataType = TOK_DEC_MODIFIER;
+        result.arraySize = 0;
+        result.TokenContent.variableID = 0;
+
+
     } else if (strcmp(validTokens[5], buffer) == 0) { // Check 'unsigned'
         // Handle 'unsigned'
+        result.tokenType = TOK_UNSIGNED;
+        result.dataType = TOK_DEC_MODIFIER;
+        result.arraySize = 0;
+        result.TokenContent.variableID = 0;
+
+
+
+
+
     } else if (strcmp(validTokens[6], buffer) == 0) { // Check 'if'
         // Handle 'if'
+        result.tokenType = TOK_IF;
+        result.dataType = TOK_LOOP;
+        result.arraySize = 0;
+        result.TokenContent.variableID = 0;
+
     } else if (strcmp(validTokens[7], buffer) == 0) { // Check 'elif'
         // Handle 'elif'
+        result.tokenType = TOK_ELIF;
+        result.dataType = TOK_LOOP;
+        result.arraySize = 0;
+        result.TokenContent.variableID = 0;
+
     } else if (strcmp(validTokens[8], buffer) == 0) { // Check 'else'
         // Handle 'else'
+        result.tokenType = TOK_ELSE;
+        result.dataType = TOK_LOOP;
+        result.arraySize = 0;
+        result.TokenContent.variableID = 0;
+
+
     } else if (strcmp(validTokens[9], buffer) == 0) { // Check 'for'
         // Handle 'for'
+        result.tokenType = TOK_FOR;
+        result.dataType = TOK_LOOP;
+        result.arraySize = 0;
+        result.TokenContent.variableID = 0;
+
     } else if (strcmp(validTokens[10], buffer) == 0) { // Check 'while'
         // Handle 'while'
+        result.tokenType = TOK_WHILE;
+        result.dataType = TOK_LOOP;
+        result.arraySize = 0;
+        result.TokenContent.variableID = 0;
+
+
+
+
     } else if (strcmp(validTokens[11], buffer) == 0) { // Check 'none'
         // Handle 'none'
+        result.tokenType = TOK_NONE;
+        result.dataType = TOK_CONSTANT;
+        result.arraySize = 0;
+        result.TokenContent.variableID = 0;
+
     } else if (strcmp(validTokens[12], buffer) == 0) { // Check 'VAL_MIN'
         // Handle 'VAL_MIN'
+        result.tokenType = TOK_VAL_MIN;
+        result.dataType = TOK_CONSTANT;
+        result.arraySize = 0;
+        result.TokenContent.variableID = 0;
     } else if (strcmp(validTokens[13], buffer) == 0) { // Check 'VAL_MAX'
         // Handle 'VAL_MAX'
+        result.tokenType = TOK_VAL_MAX;
+        result.dataType = TOK_CONSTANT;
+        result.arraySize = 0;
+        result.TokenContent.variableID = 0;
+
+
+
+
     } else if (strcmp(validTokens[14], buffer) == 0) { // Check '+'
         // Handle '+'
+        result.tokenType = TOK_ADD;
+        result.dataType = TOK_OPERATOR;
+        result.arraySize = 0;
+        result.TokenContent.variableID = 0;
     } else if (strcmp(validTokens[15], buffer) == 0) { // Check '-'
         // Handle '-'
+        result.tokenType = TOK_SUBTRACT;
+        result.dataType = TOK_OPERATOR;
+        result.arraySize = 0;
+        result.TokenContent.variableID = 0;
     } else if (strcmp(validTokens[16], buffer) == 0) { // Check '*'
         // Handle '*'
+        result.tokenType = TOK_MULTIPLY;
+        result.dataType = TOK_OPERATOR;
+        result.arraySize = 0;
+        result.TokenContent.variableID = 0;
     } else if (strcmp(validTokens[17], buffer) == 0) { // Check '/'
         // Handle '/'
+        result.tokenType = TOK_DIVIDE;
+        result.dataType = TOK_OPERATOR;
+        result.arraySize = 0;
+        result.TokenContent.variableID = 0;
     } else if (strcmp(validTokens[18], buffer) == 0) { // Check '%%'
         // Handle '%%'
+        result.tokenType = TOK_MODULUS;
+        result.dataType = TOK_OPERATOR;
+        result.arraySize = 0;
+        result.TokenContent.variableID = 0;
+
+
+
+
     } else if (strcmp(validTokens[19], buffer) == 0) { // Check '=>'
         // Handle '=>'
+        result.tokenType = TOK_GREATER_EQUAL;
+        result.dataType = TOK_COMPARATOR;
+        result.arraySize = 0;
+        result.TokenContent.variableID = 0;
     } else if (strcmp(validTokens[20], buffer) == 0) { // Check '>'
         // Handle '>'
+        result.tokenType = TOK_GREATER;
+        result.dataType = TOK_COMPARATOR;
+        result.arraySize = 0;
+        result.TokenContent.variableID = 0;
     } else if (strcmp(validTokens[21], buffer) == 0) { // Check '<='
         // Handle '<='
+        result.tokenType = TOK_LESS_EQUAL;
+        result.dataType = TOK_COMPARATOR;
+        result.arraySize = 0;
+        result.TokenContent.variableID = 0;
     } else if (strcmp(validTokens[22], buffer) == 0) { // Check '<'
         // Handle '<'
-    } else if (strcmp(validTokens[23], buffer) == 0) { // Check '=='
+        result.tokenType = TOK_LESS;
+        result.dataType = TOK_COMPARATOR;
+        result.arraySize = 0;
+        result.TokenContent.variableID = 0;
+    } else if (strcmp(validTokens[23], buffer) == 0) { // Check '==' (EQUALS FOR COMPARISON)
         // Handle '=='
-    } else if (strcmp(validTokens[24], buffer) == 0) { // Check '!='
+        result.tokenType = TOK_EQUAL;
+        result.dataType = TOK_COMPARATOR;
+        result.arraySize = 0;
+        result.TokenContent.variableID = 0;
+    } else if (strcmp(validTokens[24], buffer) == 0) { // Check '!=' 
         // Handle '!='
-    } else if (strcmp(validTokens[25], buffer) == 0) { // Check '='
+        result.tokenType = TOK_NOT_EQUAL;
+        result.dataType = TOK_COMPARATOR;
+        result.arraySize = 0;
+        result.TokenContent.variableID = 0;
+    } else if (strcmp(validTokens[25], buffer) == 0) { // Check '=' (EQUALS FOR ASSIGNMENTS)
         // Handle '='
+        result.tokenType = TOK_EQUALS;
+        result.dataType = TOK_DEC;
+        result.arraySize = 0;
+        result.TokenContent.variableID = 0;
+
+
+
+
+
     } else if (strcmp(validTokens[26], buffer) == 0) { // Check 'call'
         // Handle 'call'
+        result.tokenType = TOK_CALL;
+        result.dataType = TOK_USER_FUNC;
+        result.arraySize = 0;
+        result.TokenContent.variableID = 0;
     } else if (strcmp(validTokens[27], buffer) == 0) { // Check 'return'
         // Handle 'return'
+        result.tokenType = TOK_RETURN;
+        result.dataType = TOK_USER_FUNC;
+        result.arraySize = 0;
+        result.TokenContent.variableID = 0;
+
+
+
+
     } else if (strcmp(validTokens[28], buffer) == 0) { // Check 'read'
         // Handle 'read'
+        result.tokenType = TOK_READ;
+        result.dataType = TOK_INBUILD_FUNC;
+        result.arraySize = 0;
+        result.TokenContent.variableID = 0;
     } else if (strcmp(validTokens[29], buffer) == 0) { // Check 'output'
         // Handle 'output'
+        result.tokenType = TOK_OUTPUT;
+        result.dataType = TOK_INBUILD_FUNC;
+        result.arraySize = 0;
+        result.TokenContent.variableID = 0;
     } else if (strcmp(validTokens[30], buffer) == 0) { // Check 'allocate'
         // Handle 'allocate'
+        result.tokenType = TOK_ALLOCATE;
+        result.dataType = TOK_INBUILD_FUNC;
+        result.arraySize = 0;
+        result.TokenContent.variableID = 0;
     } else if (strcmp(validTokens[31], buffer) == 0) { // Check 'free'
         // Handle 'free'
+        result.tokenType = TOK_FREE;
+        result.dataType = TOK_INBUILD_FUNC;
+        result.arraySize = 0;
+        result.TokenContent.variableID = 0;
     } else if (strcmp(validTokens[32], buffer) == 0) { // Check 'sleep'
         // Handle 'sleep'
+        result.tokenType = TOK_SLEEP;
+        result.dataType = TOK_INBUILD_FUNC;
+        result.arraySize = 0;
+        result.TokenContent.variableID = 0;
+
+
+
+
     } else if (strcmp(validTokens[33], buffer) == 0) { // Check '['
         // Handle '['
+        result.tokenType = TOK_OPEN_SQUARE;
+        result.dataType = TOK_OTHER_SYMBOL;
+        result.arraySize = 0;
+        result.TokenContent.variableID = 0;
     } else if (strcmp(validTokens[34], buffer) == 0) { // Check ']'
         // Handle ']'
+        result.tokenType = TOK_CLOSE_SQUARE;
+        result.dataType = TOK_OTHER_SYMBOL;
+        result.arraySize = 0;
+        result.TokenContent.variableID = 0;
     } else if (strcmp(validTokens[35], buffer) == 0) { // Check '{'
         // Handle '{'
+        result.tokenType = TOK_OPEN_CURLY;
+        result.dataType = TOK_OTHER_SYMBOL;
+        result.arraySize = 0;
+        result.TokenContent.variableID = 0;
     } else if (strcmp(validTokens[36], buffer) == 0) { // Check '}'
         // Handle '}'
+        result.tokenType = TOK_CLOSE_CURLY;
+        result.dataType = TOK_OTHER_SYMBOL;
+        result.arraySize = 0;
+        result.TokenContent.variableID = 0;
     } else if (strcmp(validTokens[37], buffer) == 0) { // Check '('
         // Handle '('
+        result.tokenType = TOK_OPEN_PAREN;
+        result.dataType = TOK_OTHER_SYMBOL;
+        result.arraySize = 0;
+        result.TokenContent.variableID = 0;
     } else if (strcmp(validTokens[38], buffer) == 0) { // Check ')'
         // Handle ')'
+        result.tokenType = TOK_CLOSE_PAREN;
+        result.dataType = TOK_OTHER_SYMBOL;
+        result.arraySize = 0;
+        result.TokenContent.variableID = 0;
     } else if (strcmp(validTokens[39], buffer) == 0) { // Check ','
         // Handle ','
+        result.tokenType = TOK_COMMA;
+        result.dataType = TOK_OTHER_SYMBOL;
+        result.arraySize = 0;
+        result.TokenContent.variableID = 0;
     } else if (strcmp(validTokens[40], buffer) == 0) { // Check ';'
         // Handle ';'
+        result.tokenType = TOK_SEMICOLON;
+        result.dataType = TOK_OTHER_SYMBOL;
+        result.arraySize = 0;
+        result.TokenContent.variableID = 0;
+
+
+
+
+
+
     } else if (strcmp(validTokens[41], buffer) == 0) { // Check '@'
         // Handle '@'
+        result.tokenType = TOK_AT;
+        result.dataType = TOK_OPERATOR;
+        result.arraySize = 0;
+        result.TokenContent.variableID = 0;
     } else if (strcmp(validTokens[42], buffer) == 0) { // Check '$'
         // Handle '$'
+        result.tokenType = TOK_DOLLAR;
+        result.dataType = TOK_OPERATOR;
+        result.arraySize = 0;
+        result.TokenContent.variableID = 0;
+
+
+
+
+
     } else if (strcmp(validTokens[43], buffer) == 0) { // Check '/*'
         // Handle '/*'
+        result.tokenType = TOK_MULTILINE_COMMENT;
+        result.dataType = TOK_COMMENT;
+        result.arraySize = 0;
+        result.TokenContent.variableID = 0;
     } else if (strcmp(validTokens[44], buffer) == 0) { // Check '#'
-        // Handle '#'
+        result.tokenType = TOK_SINGLELINE_COMMENT;
+        result.dataType = TOK_COMMENT;
+        result.arraySize = 0;
+        result.TokenContent.variableID = 0;
     } else {
         // Handle unknown input
         result.tokenType = TOK_INVALID;
