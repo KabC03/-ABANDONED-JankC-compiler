@@ -11,7 +11,7 @@ typedef struct {
     size_t numRegisters;           ///< Number of registers in the register array.
 
     void *ramArray;                ///< Pointer to the array representing the VM's RAM.
-    size_t RAMsize;                ///< Size of the RAM array.
+    size_t RAMsize;                ///< Size of the RAM array (NUMBER OF BYTES).
     
     size_t programCounter;         ///< Index of the current instruction in the instruction set.
 } VirtualMachine;
