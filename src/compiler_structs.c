@@ -11,7 +11,7 @@
  * facilitating the tokenization process which precedes syntax analysis and AST construction.
  */
 
-extern char* validTokens[] = {
+const char* const validTokens[] = {
     "void", "int", "float", "char", "long", "unsigned",  // Data types
     "if", "elif", "else",                              // Conditional statements
     "for", "while",                                    // Loop structures
