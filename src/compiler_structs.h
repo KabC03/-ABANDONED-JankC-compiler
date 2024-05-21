@@ -44,6 +44,7 @@ typedef enum TOKEN_TYPE {
 
 
     //Token datatype (second field in Token struct)
+    TOK_DEC, //'=' assignments
     TOK_DEC_MODIFIER, //char, float, void, long, ptr, etc
     TOK_CONSTANT, //None, VAR_MAX, VAR_MIN
     TOK_IMMEDIATE,
