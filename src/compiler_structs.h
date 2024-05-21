@@ -56,6 +56,8 @@ typedef enum TOKEN_TYPE {
     TOK_OPERATOR, // '+', '-', etc (INCLUDES FUNCTIONS)
     TOK_COMPARATOR, //'!=', '==', '>=', etc
     TOK_OTHER_SYMBOL, //Other symbols '[' '{' '('
+    TOK_COMMENT,
+    
     
 
     //Datatypes
