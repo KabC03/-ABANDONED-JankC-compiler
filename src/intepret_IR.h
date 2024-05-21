@@ -88,7 +88,7 @@ IMPORTANT NOTE:
 VM Notes:
     - The VM interprets the IR as its own assembly.
     - The VM has its own memory and registers.
-    - Allocation and freeing of memory are done using VM-specific instructions, not malloc/free.
+    - Allocation and freeing of memory are done using VM-specific instructions, not malloc/free in the intepreter.
     - All VM items (variables, data) are stored in the VM's memory.
     - Read reads from the interpreter terminal using scanf and moves the input to a dedicated input register.
     - Print prints a single character to the interpreter terminal.
