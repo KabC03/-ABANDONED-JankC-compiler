@@ -2,7 +2,13 @@
 #define BUFFER_EXPANSION 10 //Used for expansion of buffer in tokenise function
 
 
-
+/**
+ * Checks if a character is considered a symbol in the context of the tokenizer.
+ * Symbols are special characters that might denote operators, punctuation, or other special tokens.
+ *
+ * @param character The character to check.
+ * @return true if the character is a symbol, false otherwise.
+ */
 bool is_symbol(char character) {
     //Check for symbols
     //If symbol - check if next character is symbol also
@@ -55,7 +61,15 @@ bool is_symbol(char character) {
 
 
 
-
+/**
+ * Assigns token properties based on the content of the buffer.
+ * This function maps a string buffer to a specific token type by comparing it against known valid tokens.
+ *
+ * @param buffer A pointer to a null-terminated string that contains the token to process.
+ * @return A Token structure with the token type set according to the content of the buffer.
+ *         If the buffer matches a known token, the corresponding token type is set.
+ *         If no match is found, TOK_INVALID is set as the token type.
+ */
 Token assign_properties(char *buffer) {
 
     Token result;
@@ -165,7 +179,17 @@ Token assign_properties(char *buffer) {
 
 
 
-//User calls this
+/**
+ * Tokenizes a given input line into a dynamic array of tokens.
+ * The function processes the input line character by character, and uses the `is_symbol`
+ * function to determine when a token ends. Each token is processed and properties are assigned
+ * using `assign_properties`. Memory for tokens and the buffer is dynamically managed.
+ *
+ * @param inputLine A pointer to a null-terminated string from which tokens will be extracted.
+ * @return A pointer to an array of Token structures, each representing a token extracted
+ *         from the input. If a memory allocation fails during processing, NULL is returned.
+ *         The caller is responsible for freeing the returned array.
+ */
 Token *tokenise(char *inputLine) {
 
     Token *tokensOut = NULL; //Array of tokens
