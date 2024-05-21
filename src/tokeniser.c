@@ -407,10 +407,29 @@ Token assign_properties(char *buffer) {
         result.dataType = TOK_COMMENT;
         result.arraySize = 0;
         result.TokenContent.variableID = 0;
+
+
+
+
+    } else if(function_name_check(buffer) == true) {  //Function starts with fn_ and has no symbols
+
+    } else if(variable_name_check(buffer) == true) {  //Variable contains no symbols
+
+    } else if(immediate_check(buffer) == true) { //Immediate contains no symbols or letters
+
+    } else if(char_check(buffer) == true) { //Char should only be 1 character and surrounded in ' '
+
     } else {
         // Handle unknown input
         result.tokenType = TOK_INVALID;
     }
+
+
+
+
+    //Else is unknown
+
+
 
     return result;
 }
