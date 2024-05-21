@@ -547,7 +547,7 @@ Token assign_properties(char *buffer) {
 
     } else if(immediate_check(buffer) == true) { //Immediate contains no symbols or letters
 
-    } else if(char_check(buffer) == true) { //Char should only be 1 character and surrounded in ' '
+    } else if(char_check(buffer) == true) { //Char should only be 1 character and surrounded in ' ' (4 characters long string including \0)
 
     } else {
         // Handle unknown input
