@@ -17,7 +17,7 @@
 #define COMPILER_STRUCTS_H 
 #include <stddef.h>
 #include <stdbool.h>
-
+extern const char* const validTokens[];
 
 
 typedef enum OPERATOR_PRECEDENCE {
