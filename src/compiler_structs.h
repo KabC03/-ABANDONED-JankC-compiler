@@ -82,9 +82,9 @@ typedef enum TOKEN_TYPE {
     TOK_FREE,        //Free memory
 
     //Constants
-    TOK_NULL,
-    TOK_VAL_MAX,
-    TOK_VAL_MIN,
+    TOK_NONE,        //NULL
+    TOK_VAL_MAX,     //Max int value
+    TOK_VAL_MIN,     //Smallest int value
     // Operators
     TOK_ADD,            // '+'
     TOK_SUBTRACT,       // '-'
