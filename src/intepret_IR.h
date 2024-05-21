@@ -15,7 +15,19 @@
 #include <string.h>
 #include <ctype.h>
 
-typedef struct VirtualMachine VirtualMachine;
+typedef struct VirtualMachine {
+
+    //Note void pointers used - this is because memory can hold any datatype
+    void *registerArray;
+    size_t numRegisters;
+
+    void *ramArray;
+    size_t RAMsize;
+
+    //Indexes BITS
+    size_t programCounter;
+
+} VirtualMachine;
 
 
 
