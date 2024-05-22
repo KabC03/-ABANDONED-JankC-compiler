@@ -95,14 +95,22 @@ bool initialise_virtual_machine(size_t RAMsize, size_t numRegisters, size_t inst
 }
 
 
-
+/**
+ * Store data in a register or RAM.
+ *
+ * @param index The index at which to store data.
+ * @param newData The data to store.
+ * @param datatype 'i' for int and 'f' for float.
+ * @param destination 'R' for register and 'r' for RAM.
+ * @return The original data on success, or zero-initialized data on failure.
+ */
 DataTypes store_data(size_t index, DataTypes newData, char datatype, char destination) {
 
     DataTypes result;
     result.intVal = 0;
 
     DataTypes failureReturn;
-    failureReturn.intVal = 0;
+    failureReturn.intVal = -1;
 
     if(VM.registerArray == NULL || VM.ramArray == NULL) return failureReturn;
 
@@ -146,14 +154,22 @@ DataTypes store_data(size_t index, DataTypes newData, char datatype, char destin
 
 
 
-
+/**
+ * Store data in a register or RAM.
+ *
+ * @param index The index at which to store data.
+ * @param newData The data to store.
+ * @param datatype 'i' for int and 'f' for float.
+ * @param destination 'R' for register and 'r' for RAM.
+ * @return The original data on success, or zero-initialized data on failure.
+ */
 DataTypes read_data(size_t index, char datatype, char destination) {
 
     DataTypes result;
     result.intVal = 0;
 
     DataTypes failureReturn;
-    failureReturn.intVal = 0;
+    failureReturn.intVal = -1;
 
     if(VM.registerArray == NULL || VM.ramArray == NULL) return failureReturn;
 
