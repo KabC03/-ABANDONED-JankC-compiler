@@ -19,7 +19,7 @@ VM - Continue working on it
 
 TODO order:
 
-VM - finish completely
+VM - finish completely. Also add debugger. Allow instructions to be shown, step through execution and showing register states/ram
 Parser - Get working
 
 Architecture specific assembler - Get working
