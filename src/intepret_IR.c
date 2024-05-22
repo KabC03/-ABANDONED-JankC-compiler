@@ -34,6 +34,7 @@ typedef enum VALID_INSTRUCTIONS {
     SUB,      ///< Subtract instruction
     MUL,      ///< Multiply instruction
     DIV,      ///< Divide instruction
+    MOD,      ///< Mod instruction
     STR,      ///< Store instruction
     LOD,      ///< Load instruction
     GRT,      ///< Greater than instruction
@@ -211,7 +212,50 @@ DataTypes read_data(size_t index, char datatype, char destination) {
 
 
 
+INT_TYPE string_to_int(char *string) {
 
+    if(string == NULL) return -1;
+
+
+    long long int result = -1;
+    char *endPtr = NULL;
+
+    strtoll(string, &endPtr, 10);
+
+    if(endPtr == NULL) {
+        return -1;
+    } else if(endPtr == string) {
+        return -1; //None of string was converted
+
+    } else if(*endPtr != '\0') {
+        return -1; //Not all of string was convered
+    }
+
+
+    return (INT_TYPE)result;
+}
+
+
+FLOAT_TYPE string_to_float(char *string) {
+    if(string == NULL) return -1;
+
+    long double result = -1;
+    char *endPtr = NULL;
+
+    strtod(string, &endPtr);
+
+    if(endPtr == NULL) {
+        return -1;
+    } else if(endPtr == string) {
+        return -1; //None of string was converted
+
+    } else if(*endPtr != '\0') {
+        return -1; //Not all of string was convered
+    }
+
+
+    return (FLOAT_TYPE)result;
+}
 
 
 
@@ -253,39 +297,156 @@ bool run_virtual_machine(char *IRCodePath) { //NOTE - MAKE ERROR CODES BETTER - 
             char *instructionPtr = strtok(buffer, "|||");
             char *arg1Ptr = strtok(NULL, "|||");
             char *arg2Ptr = strtok(NULL, "|||");
-            char *argc3Ptr = strtok(NULL, "|||");
+            char *arg3Ptr = strtok(NULL, "|||");
 
-            if(instructionPtr == NULL || arg1Ptr == NULL || arg2Ptr == NULL || argc3Ptr == NULL) {
+            if(instructionPtr == NULL || arg1Ptr == NULL || arg2Ptr == NULL || arg3Ptr == NULL) {
                 printf("[Virtual Machine] Failed to tokenise '%s'\n",buffer);
                 return false;
             }
 
 
+            //Get index and values
+            DataTypes arg1Value;
+            arg1Value.intVal = -1;
+            DataTypes arg2Value;
+            arg2Value.intVal = -1;
+            DataTypes arg3Value;
+            arg3Value.intVal = -1;
+            char labelBuffer[100]; //TEMPORARY - use dynamic memory
+            size_t arg1Index = 0;
+            size_t arg2Index = 0;
+            size_t arg3Index = 0;
+            DataTypes passVal;
+            passVal.intVal = 0;
 
-            
+
+            //Process everything - note not everything here may be used for instruction - just done for clean code
+            arg1Index = string_to_int(arg1Ptr);
+            arg2Index = string_to_int(arg2Ptr);
+            arg3Index = string_to_int(arg3Ptr);
+
+
+
+
+            /********************************************/
+            /* NOTE - IMPLEMENT FLOAT AND IMMEDIATE INSTRUCTIONS */
+            /********************************************/
+
+
             if (strcmp(instructionPtr, "ADD") == 0) {
                 
                 //Convert all args to long long ints, do calculation then place in register
                 //Check arg1, 2 and 3 are both numbers
                 //reg[arg1Ptr] = reg[arg2Ptr] + reg[arg13Ptr]
                 //CHECK REGISTER BOUNDS BEFORE INDEXING - THROW ERROR (INVALID REGISTER) IF MUST
+     
+                arg1Value.intVal =  read_data(arg1Index, 'i', 'R').intVal;
+                arg2Value.intVal =  read_data(arg2Index, 'i', 'R').intVal;
+                arg3Value.intVal =  read_data(arg3Index, 'i', 'R').intVal;
 
+
+                if(arg1Index == -1 || arg2Index == -1 || arg3Index == -1) { //Make better error reporting - say EXACTLY which register is the issue
+                    printf("[Virtual Machine] Expected numerical register number\n");
+                    return false;
+                }
+                if(arg1Value.intVal  == -1 || arg2Value.intVal == -1 || arg3Value.intVal == -1 ) { //Make better error reporting - say EXACTLY which register is the issue
+                    printf("[Virtual Machine] Register input out of bounds\n");
+                    return false;
+                }
+                passVal.intVal = arg2Value.intVal + arg3Value.intVal;
+                store_data(arg1Index, passVal, 'i', 'R');
 
             } else if (strcmp(instructionPtr, "SUB") == 0) {
-                // Body
+
+                arg1Value.intVal =  read_data(arg1Index, 'i', 'R').intVal;
+                arg2Value.intVal =  read_data(arg2Index, 'i', 'R').intVal;
+                arg3Value.intVal =  read_data(arg3Index, 'i', 'R').intVal;
+                if(arg1Index == -1 || arg2Index == -1 || arg3Index == -1) { //Make better error reporting - say EXACTLY which register is the issue
+                    printf("[Virtual Machine] Expected numerical register number\n");
+                    return false;
+                }
+                if(arg1Value.intVal  == -1 || arg2Value.intVal == -1 || arg3Value.intVal == -1 ) { //Make better error reporting - say EXACTLY which register is the issue
+                    printf("[Virtual Machine] Register input out of bounds\n");
+                    return false;
+                }
+                passVal.intVal = arg2Value.intVal - arg3Value.intVal;
+                store_data(arg1Index, passVal, 'i', 'R');
+
+
+
             } else if (strcmp(instructionPtr, "MUL") == 0) {
-                // Body
+
+                arg1Value.intVal =  read_data(arg1Index, 'i', 'R').intVal;
+                arg2Value.intVal =  read_data(arg2Index, 'i', 'R').intVal;
+                arg3Value.intVal =  read_data(arg3Index, 'i', 'R').intVal;
+                if(arg1Index == -1 || arg2Index == -1 || arg3Index == -1) { //Make better error reporting - say EXACTLY which register is the issue
+                    printf("[Virtual Machine] Expected numerical register number\n");
+                    return false;
+                }
+                if(arg1Value.intVal  == -1 || arg2Value.intVal == -1 || arg3Value.intVal == -1 ) { //Make better error reporting - say EXACTLY which register is the issue
+                    printf("[Virtual Machine] Register input out of bounds\n");
+                    return false;
+                }
+                passVal.intVal = arg2Value.intVal * arg3Value.intVal;
+                store_data(arg1Index, passVal, 'i', 'R');
+
             } else if (strcmp(instructionPtr, "DIV") == 0) {
-                // Body
+                arg1Value.intVal =  read_data(arg1Index, 'i', 'R').intVal;
+                arg2Value.intVal =  read_data(arg2Index, 'i', 'R').intVal;
+                arg3Value.intVal =  read_data(arg3Index, 'i', 'R').intVal;
+                if(arg1Index == -1 || arg2Index == -1 || arg3Index == -1) { //Make better error reporting - say EXACTLY which register is the issue
+                    printf("[Virtual Machine] Expected numerical register number\n");
+                    return false;
+                }
+                if(arg1Value.intVal  == -1 || arg2Value.intVal == -1 || arg3Value.intVal == -1 ) { //Make better error reporting - say EXACTLY which register is the issue
+                    printf("[Virtual Machine] Register input out of bounds\n");
+                    return false;
+                }
+                passVal.intVal = arg2Value.intVal / arg3Value.intVal;
+                store_data(arg1Index, passVal, 'i', 'R');
+
+            } else if (strcmp(instructionPtr, "MOD") == 0) { // Takes address and register to store, no label
+                arg1Value.intVal =  read_data(arg1Index, 'i', 'R').intVal;
+                arg2Value.intVal =  read_data(arg2Index, 'i', 'R').intVal;
+                arg3Value.intVal =  read_data(arg3Index, 'i', 'R').intVal;
+                if(arg1Index == -1 || arg2Index == -1 || arg3Index == -1) { //Make better error reporting - say EXACTLY which register is the issue
+                    printf("[Virtual Machine] Expected numerical register number\n");
+                    return false;
+                }
+                if(arg1Value.intVal  == -1 || arg2Value.intVal == -1 || arg3Value.intVal == -1 ) { //Make better error reporting - say EXACTLY which register is the issue
+                    printf("[Virtual Machine] Register input out of bounds\n");
+                    return false;
+                }
+                passVal.intVal = arg2Value.intVal % arg3Value.intVal;
+                store_data(arg1Index, passVal, 'i', 'R');
+
+
+
+
 
 
             } else if (strcmp(instructionPtr, "STR") == 0) { // Takes address and register to store, no label
 
                 //Check arg3 is just '[]'
                 //Convert all args to long long ints, do calculation then place in register
-                //Check arg1, 2 and 3 are both numbers
+                //Check arg1, 2 are both numbers
                 //RAM[arg1] = regarray[arg2]
                 //CHECK REGISTER BOUNDS BEFORE INDEXING - THROW ERROR (SIGSEV) IF MUST
+                if(strcmp(arg3Ptr, "[]") != 0) {
+                    printf("[Virtual Machine] Expected third argument to be '[]'\n");
+                    return false;
+                }
+                if(arg1Index == -1 || arg2Index == -1) {
+                    printf("[Virtual Machine] Expected numerical arguments\n");
+                    return false;
+                }
+
+                //Warning - dangerous cast - casting float to int may lose data
+                passVal = read_data(arg2Index, 'i', 'r');
+                store_data(arg1Index, passVal, 'i', 'r');
+
+
+
             } else if (strcmp(instructionPtr, "LOD") == 0) {
                 // Body
             } else if (strcmp(instructionPtr, "GRT") == 0) {
@@ -340,3 +501,9 @@ bool run_virtual_machine(char *IRCodePath) { //NOTE - MAKE ERROR CODES BETTER - 
     if(fclose(inputFile) != 0) return false;
     return true;
 }
+
+
+
+
+
+
