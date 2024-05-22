@@ -2,15 +2,21 @@
 
 
 #define EXPANSIONSIZE 5
+#define INT_TYPE int
+#define FLOAT_TYPE float
 
+typedef union DataTypes {
 
+    INT_TYPE intVal;
+    FLOAT_TYPE floatVal;
 
+} DataTypes;
 typedef struct {
     size_t instructionsPerSecond;  ///< The number of instructions the VM can execute per second.
-    void *registerArray;           ///< Pointer to the array of registers.
+    DataTypes *registerArray;      ///< Pointer to the array of registers.
     size_t numRegisters;           ///< Number of registers in the register array.
 
-    void *ramArray;                ///< Pointer to the array representing the VM's RAM.
+    DataTypes *ramArray;                ///< Pointer to the array representing the VM's RAM.
     size_t RAMsize;                ///< Size of the RAM array (NUMBER OF BYTES).
     
     size_t programCounter;         ///< Index of the current instruction in the instruction set (COUNT BITS NOT BYTES).
@@ -71,8 +77,8 @@ bool initialise_virtual_machine(size_t RAMsize, size_t numRegisters, size_t inst
     }
     VM.instructionsPerSecond = instructionsPerSecond; //Clockspeed basically
 
-    VM.registerArray = (void*)malloc(numRegisters); 
-    VM.ramArray = (void*)malloc(RAMsize);
+    VM.registerArray = (DataTypes*)malloc(numRegisters * sizeof(DataTypes)); //Store space for a full word
+    VM.ramArray = (DataTypes*)malloc(RAMsize * sizeof(DataTypes)); //Store space for a full word - yes this wastes space
 
     if(VM.registerArray == NULL || VM.ramArray == NULL) {
         if(VM.ramArray == NULL) {
@@ -87,6 +93,111 @@ bool initialise_virtual_machine(size_t RAMsize, size_t numRegisters, size_t inst
 
     return true;
 }
+
+
+
+DataTypes store_data(size_t index, DataTypes newData, char datatype, char destination) {
+
+    DataTypes result;
+    result.intVal = 0;
+
+    DataTypes failureReturn;
+    failureReturn.intVal = 0;
+
+    if(VM.registerArray == NULL || VM.ramArray == NULL) return failureReturn;
+
+
+
+    else if(destination == 'R') { //Register
+        if(index >= VM.numRegisters) {
+            return failureReturn; //Register does not exist
+        } else {
+
+            if(datatype == 'i') {
+                (VM.registerArray[index]).intVal = newData.intVal;
+            } else if(datatype == 'f') {
+                (VM.registerArray[index]).floatVal = newData.floatVal;
+            } else {
+                return failureReturn;
+            }
+
+        }
+    } else if(destination == 'r') { //RAM
+
+        if(index >= VM.RAMsize) {
+            return failureReturn; //Segfault - invalid memory
+        } else {
+
+            if(datatype == 'i') {
+                (VM.ramArray[index]).intVal = newData.intVal;
+            } else if(datatype == 'f') {
+                (VM.ramArray[index]).floatVal = newData.floatVal;
+            } else {
+                return failureReturn;
+            }
+
+        }
+    } else return failureReturn;
+
+
+    return result;
+}
+
+
+
+
+
+DataTypes read_data(size_t index, char datatype, char destination) {
+
+    DataTypes result;
+    result.intVal = 0;
+
+    DataTypes failureReturn;
+    failureReturn.intVal = 0;
+
+    if(VM.registerArray == NULL || VM.ramArray == NULL) return failureReturn;
+
+
+
+    else if(destination == 'R') { //Register
+        if(index >= VM.numRegisters) {
+            return failureReturn; //Register does not exist
+        } else {
+
+            if(datatype == 'i') {
+                result.intVal = (VM.registerArray[index]).intVal; 
+            } else if(datatype == 'f') {
+                result.floatVal = (VM.registerArray[index]).floatVal; 
+            } else {
+                return failureReturn;
+            }
+        }
+    } else if(destination == 'r') { //RAM
+
+        if(index >= VM.RAMsize) {
+            return failureReturn; //RAM does not exist - segfault
+        } else {
+
+            if(datatype == 'i') {
+                result.intVal = (VM.ramArray[index]).intVal; 
+            } else if(datatype == 'f') {
+                result.floatVal = (VM.ramArray[index]).floatVal; 
+            } else {
+                return failureReturn;
+            }
+        }
+
+    } else return failureReturn;
+
+
+    return result;
+}
+
+
+
+
+
+
 
 
 
@@ -213,40 +324,3 @@ bool run_virtual_machine(char *IRCodePath) { //NOTE - MAKE ERROR CODES BETTER - 
     if(fclose(inputFile) != 0) return false;
     return true;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
