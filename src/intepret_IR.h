@@ -22,8 +22,7 @@ typedef struct VirtualMachine VirtualMachine;
 
 
 bool initialise_virtual_machine(size_t RAMsize, size_t numRegisters, size_t instructionsPerSecond);
-bool run_virtual_machine(char *IRCodePath);
-
+void print_VM_properties(void);
 
 
 
