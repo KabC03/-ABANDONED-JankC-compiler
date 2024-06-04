@@ -25,9 +25,6 @@ typedef struct VirtualMachine{
 
 
 
-
-
-
 typedef enum VALID_INSTRUCTIONS {
     INVALID,  ///< Interpreter use only - not part of instruction set
     ADD,      ///< Add instruction
@@ -111,9 +108,33 @@ void print_VM_properties(void) {
     printf("Ram size:                   %zu\n",VM.RAMsize);
     printf("========================================\n");
 
-
     return;
 }
+
+
+
+bool run_VM(void) {
+
+    
+
+
+
+    return true;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
