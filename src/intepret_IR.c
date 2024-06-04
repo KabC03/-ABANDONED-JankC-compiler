@@ -20,6 +20,7 @@ typedef struct VirtualMachine{
     size_t RAMsize;                ///< Size of the RAM array (NUMBER OF BYTES).
     
     size_t programCounter;         ///< Index of the current instruction in the instruction set (COUNT BITS NOT BYTES).
+
 } VirtualMachine;
 
 
@@ -113,10 +114,24 @@ void print_VM_properties(void) {
 
 
 
-bool run_VM(void) {
+bool run_VM(char *fileName) {
+
+    //input filename for source file
+    if(fileName == NULL) {
+        return false;
+    }
+
+
+    FILE *fptr = fopen(fileName, "r");
+    if(fptr == NULL) {
+        return false;
+    }
+
+
+
+
 
     
-
 
 
     return true;
