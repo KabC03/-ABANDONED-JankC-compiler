@@ -2,6 +2,7 @@
     "files.associations": {
         "compiler_structs.h": "c",
         "storage_controller.h": "c",
-        "stack.h": "c"
+        "stack.h": "c",
+        "intepret_ir.h": "c"
     }
 }

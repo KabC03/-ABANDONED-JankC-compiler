@@ -114,18 +114,22 @@ void print_VM_properties(void) {
 
 
 
-bool run_VM(char *fileName, char debug) {
+bool run_VM(char *fileName, bool debug) {
 
+    //Debug is used to print what the VM is doing
     //input filename for source file
     if(fileName == NULL) {
         return false;
     }
-
-
     FILE *fptr = fopen(fileName, "r");
     if(fptr == NULL) {
         return false;
     }
+
+    if(debug == true) {
+        printf("[VM - DEBUG]Opened %s\n",fileName);
+    }
+    
 
 
 

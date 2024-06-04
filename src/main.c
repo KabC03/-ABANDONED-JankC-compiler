@@ -44,7 +44,7 @@ int main(int argc, char *argv[]) {
     initialise_virtual_machine(256, 6, 1);
     print_VM_properties();
 
-    run_VM("../data/IR_source.txt", 'y');
+    run_VM("./data/IR_source.txt", true);
 
 
     return 0;
