@@ -40,14 +40,14 @@ int main(int argc, char *argv[]) {
 
     //Currently debugging VM
 
-
-
+    initialise_virtual_machine(256, 6, 1);
+    print_VM_properties();
 
 
 
     return 0;
-}
 
+}
 
 
 
