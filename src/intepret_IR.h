@@ -23,7 +23,7 @@ typedef struct VirtualMachine VirtualMachine;
 
 bool initialise_virtual_machine(size_t RAMsize, size_t numRegisters, size_t instructionsPerSecond);
 void print_VM_properties(void);
-
+bool run_VM(char *fileName, char debug);
 
 
 

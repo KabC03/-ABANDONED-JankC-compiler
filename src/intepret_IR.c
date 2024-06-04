@@ -114,7 +114,7 @@ void print_VM_properties(void) {
 
 
 
-bool run_VM(char *fileName) {
+bool run_VM(char *fileName, char debug) {
 
     //input filename for source file
     if(fileName == NULL) {
@@ -131,7 +131,7 @@ bool run_VM(char *fileName) {
 
 
 
-    
+
 
 
     return true;
