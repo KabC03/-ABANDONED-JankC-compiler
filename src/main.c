@@ -34,6 +34,7 @@
 #include "compiler_structs.h"  
 #include "stack.h"             
 #include "storage_controller.h"
+#include "intepret_IR.h"
 
 
 int main(int argc, char *argv[]) {

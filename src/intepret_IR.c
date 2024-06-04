@@ -109,6 +109,8 @@ void print_VM_properties(void) {
     printf("Instructions per second:    %zu\n", VM.instructionsPerSecond);
     printf("Number of registers:        %zu\n", VM.numRegisters);
     printf("Ram size:                   %zu\n",VM.RAMsize);
+    printf("========================================\n");
+
 
     return;
 }
