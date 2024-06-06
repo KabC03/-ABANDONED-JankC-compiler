@@ -118,11 +118,16 @@ bool run_VM(char *fileName, bool debug) {
     }
     FILE *fptr = fopen(fileName, "r");
     if(fptr == NULL) {
+
+        if(debug == true) {
+            printf("[VM - DEBUG] FAILED to open: %s\n",fileName);
+        }
+
         return false;
     }
 
     if(debug == true) {
-        printf("[VM - DEBUG]Opened %s\n",fileName);
+        printf("[VM - DEBUG] Opened: %s\n",fileName);
     }
     
 
