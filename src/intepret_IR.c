@@ -7,7 +7,7 @@
 
 
 #define OPCODE_SIZE 7
-#define EXPANSION_SIZE 5 //For dynamic buffers
+#define LINE_SIZE 20 //TEMPORARY - read in line buffer
 
 typedef union DataTypes {
 
@@ -196,6 +196,8 @@ bool run_VM(char *fileName, bool debug) {
     //Place into dynamic array of tokens
     //Move onto intepreting
 
+
+    //Read line by line
 
 
 
