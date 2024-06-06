@@ -95,8 +95,14 @@ bool initialise_virtual_machine(size_t RAMsize, size_t numRegisters, size_t inst
 
 
 
-
+/**
+ * @brief Print the properties of the virtual machine.
+ *
+ * This function prints the current properties of the virtual machine, including instructions per second,
+ * number of registers, and RAM size.
+ */
 void print_VM_properties(void) {
+    //Print the VM info
 
     printf("=======Virtual machine properties=======\n");
     printf("Instructions per second:    %zu\n", VM.instructionsPerSecond);
@@ -108,8 +114,37 @@ void print_VM_properties(void) {
 }
 
 
-
+/**
+ * @brief Run the virtual machine with the given intermediate representation (IR) file.
+ *
+ * This function reads the IR output file line by line and interprets each line on the VM.
+ * It performs a pass on the file first to put it into a token array, where each index in the token array
+ * acts as an index into the instruction memory. This approach allows labels to be defined in a map
+ * (Label name -> jump address). The debug flag can be used to print what the VM is doing.
+ * If an error occurs, such as an out-of-bounds access in the VM memory, the corresponding interrupt flag
+ * is set and the function returns false. If debug mode is enabled, error messages are printed.
+ *
+ * @param fileName The name of the IR file to execute.
+ * @param debug If true, prints debugging information.
+ * @return true if the file was successfully opened and processed, false otherwise.
+ */
 bool run_VM(char *fileName, bool debug) {
+
+
+    //Basically reads the IR output file line by line and inteprets (line by line) on the VM
+    //Does a PASS on the file FIRST - put it into a token array
+    //Each index in the token array is like an index into the instruction memory
+    //This approach also allows lables to be defined in a map (Label name -> jump Address)
+
+    //Returns false if file cant be opened
+    //If something goes wrong in the VM itself (e.g OOB access in the VM memory) set the corrosponding interupt flag
+    //Continue execution then return false - if debug mode on then also print that a error happened
+    
+    //In instruction IR file all have the form [OPERATION]|||argument1|||argument2|||argument3|||
+    //Irregardless of r i or j instruction
+    //Use strtok to break it up
+
+
 
     //Debug is used to print what the VM is doing
     //input filename for source file
