@@ -6,7 +6,7 @@
 #define FLOAT_TYPE float
 
 
-#define OPCODE_SIZE 3
+#define OPCODE_SIZE 7
 
 typedef union DataTypes {
 
@@ -30,7 +30,9 @@ typedef struct VirtualMachine {
 typedef struct Instruction {
 
     char opcode[OPCODE_SIZE];
-
+    size_t ARG1; //Register
+    size_t ARG2; //Register
+    size_t ARG3; //Register, Label or Immediate
 
 
 } Instruction;
