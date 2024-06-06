@@ -1,12 +1,13 @@
 #include "intepret_IR.h"
 
 
-#define EXPANSIONSIZE 5
+
 #define INT_TYPE int
 #define FLOAT_TYPE float
 
 
 #define OPCODE_SIZE 7
+#define EXPANSION_SIZE 5 //For dynamic buffers
 
 typedef union DataTypes {
 
@@ -189,10 +190,11 @@ bool run_VM(char *fileName, bool debug) {
 
 
 
-    //Tokenisation
     //Each line goes into the instruction memory array (which is a dynamic array)
-
-
+    //Read file line by line
+    //Extract tokens with strtok by |||
+    //Place into dynamic array of tokens
+    //Move onto intepreting
 
 
 
