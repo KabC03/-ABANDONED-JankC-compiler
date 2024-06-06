@@ -8,6 +8,7 @@
 
 #define OPCODE_SIZE 7
 #define LINE_SIZE 20 //TEMPORARY - read in line buffer
+#define INSTR_SIZE 10 //Instruction memory expansion size
 
 typedef union DataTypes {
 
@@ -198,9 +199,47 @@ bool run_VM(char *fileName, bool debug) {
 
 
     //Read line by line
+    char lineBuffer[LINE_SIZE];
+
+
+    Instruction *instructionMemoryArray = (Instruction*)malloc(sizeof(Instruction) * INSTR_SIZE);
+    size_t instructionMemorySize = INSTR_SIZE;
+    if(instructionMemoryArray == NULL) {
+        if(debug == true) {
+            printf("[VM - DEBUG] FAILED to allocate memory for instructions\n");
+        }
+        return false;
+    }
+
+
+    Instruction currentInstruction = {-1,-1,-1,-1};
+    char *currentToken = NULL;
+    for(int i = 0; fgets(lineBuffer, sizeof(lineBuffer), fptr) != NULL; i++) {
+
+        if(i % (INSTR_SIZE - 1) == 0) { //Need to expand instruction memory
+
+            instructionMemorySize += INSTR_SIZE;
+            instructionMemoryArray = (Instruction*)realloc(instructionMemoryArray, instructionMemorySize);
+        }
+
+
+        //Get opcode
+        currentToken = strtok(lineBuffer, "|||");
+        if(currentToken == NULL) {
+            printf("[VM] EXPECTED more operands on line %s\n",lineBuffer);
+            return false;
+        }
+        strncpy(currentInstruction.opcode, currentToken, OPCODE_SIZE);
+
+
+        //Continue here
 
 
 
+
+
+        instructionMemoryArray[i] = currentInstruction;
+    }
 
 
 
