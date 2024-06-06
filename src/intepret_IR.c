@@ -32,7 +32,12 @@ typedef struct Instruction {
     char opcode[OPCODE_SIZE];
     size_t ARG1; //Register
     size_t ARG2; //Register
-    size_t ARG3; //Register, Label or Immediate
+
+    union ARG3{
+        size_t reg; //Register, Label or Immediate
+        size_t label;
+        double immediate;
+    } ARG3;
 
 
 } Instruction;
