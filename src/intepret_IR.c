@@ -95,12 +95,7 @@ bool initialise_virtual_machine(size_t RAMsize, size_t numRegisters, size_t inst
 
 
 
-/**
- * @brief Print the properties of the Virtual machine
- *
- * This function returns nothing
- *
- */
+
 void print_VM_properties(void) {
 
     printf("=======Virtual machine properties=======\n");
