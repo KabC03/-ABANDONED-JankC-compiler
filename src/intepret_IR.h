@@ -37,6 +37,8 @@ Syntax List
 
 Note: '|||' is used to break up tokens for easier parsing.
 Note:  Register numbers are just numbers, not R1/R2/etc - just enter 1/2 instead
+Note:  Labels can ONLY be numbers
+
 
 [OPERATION]|||Rdest|||Rsource|||Rsource|||
 
@@ -61,9 +63,9 @@ Note:  Register numbers are just numbers, not R1/R2/etc - just enter 1/2 instead
     - Compare R1 and R2 with an operation and jump to [LABEL] if the condition is true.
     - Operations: GRT (greater), GRE (greater or equal), LES (less), LEQ (less or equal), EQU (equal), NEQ (not equal).
 
-JMP|||[LABEL]|||[]|||[]|||
+GOTO|||[LABEL]|||[]|||[]|||
 
-    - Unconditionally jump to [LABEL].
+    - Unconditionally goto to [LABEL].
 
 JAL|||[LABEL]|||[]|||[]|||
 

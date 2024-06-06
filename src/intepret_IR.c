@@ -5,13 +5,16 @@
 #define INT_TYPE int
 #define FLOAT_TYPE float
 
+
+#define OPCODE_SIZE 3
+
 typedef union DataTypes {
 
     INT_TYPE intVal;
     FLOAT_TYPE floatVal;
 
 } DataTypes;
-typedef struct VirtualMachine{
+typedef struct VirtualMachine {
     size_t instructionsPerSecond;  ///< The number of instructions the VM can execute per second.
     DataTypes *registerArray;      ///< Pointer to the array of registers.
     size_t numRegisters;           ///< Number of registers in the register array.
@@ -22,6 +25,16 @@ typedef struct VirtualMachine{
     size_t programCounter;         ///< Index of the current instruction in the instruction set (COUNT BITS NOT BYTES).
 
 } VirtualMachine;
+
+
+typedef struct Instruction {
+
+    char opcode[OPCODE_SIZE];
+
+
+
+} Instruction;
+
 
 
 
@@ -165,6 +178,15 @@ bool run_VM(char *fileName, bool debug) {
         printf("[VM - DEBUG] Opened: %s\n",fileName);
     }
     
+
+
+
+
+    //Tokenisation
+    //Each line goes into the instruction memory array (which is a dynamic array)
+
+
+
 
 
 
