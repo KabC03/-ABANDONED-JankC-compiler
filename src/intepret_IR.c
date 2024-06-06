@@ -140,7 +140,7 @@ bool run_VM(char *fileName, bool debug) {
     //If something goes wrong in the VM itself (e.g OOB access in the VM memory) set the corrosponding interupt flag
     //Continue execution then return false - if debug mode on then also print that a error happened
     
-    //In instruction IR file all have the form [OPERATION]|||argument1|||argument2|||argument3|||
+    //In instruction IR file all have the form OPERATION|||argument1|||argument2|||argument3|||
     //Irregardless of r i or j instruction
     //Use strtok to break it up
 
