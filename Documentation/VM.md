@@ -25,17 +25,26 @@ If by the end of the file not all label definitions have been resolved, executio
 
 ### Pass over tokens (Intepreter)
 
-
-#### Most features are indentical to other ISA implementations with some exceptions
+#### Intepreter properties
 
 - Registers
 
     - The IR virtual machine only contains a specified number of general purpose registers and a stack pointer
 
+- RAM
+
+    - A contiguous block of memory of a specified size
+
 - Program counter
 
     - The program counter is an index into the instruction array
     - Increases by one each cycle
+
+
+
+#### Most features are indentical to other ISA implementations with some exceptions
+
+
 
 
 - Arithmatic instructions
@@ -63,6 +72,33 @@ If by the end of the file not all label definitions have been resolved, executio
     - ALLOCATE is handled by the interpreter searching the memory pool for an available block
     - FREE is handled by the intepreter setting the block as unused memory
 
+
+
+### Error output
+
+- Errors
+
+    - Inability to open/close a file
+
+    - Syntax errors
+
+    - OOB errors
+
+
+### Debug mode
+
+Debug mode is a feature that, enables a program to be stepped through line by line
+
+
+- Line by line execution
+
+    - "instructions" - displays the current instruction being executed
+
+    - "breakpoint X" - sets a breakpoint at line X
+    - "Continue" - continue past a breakpoint
+
+    - "regdump" - dumps register states to terminal
+    - "ramdump" - dump RAM contents to the terminal
 
 
 
