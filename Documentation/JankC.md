@@ -2,9 +2,11 @@
 
 JankC is a compiled/emulated language that takes inspiration from C. It is a low level language that provides low level control over hardware while also providing abstraction over basic control structures
 
+Note: Compiler does not perform checks beyond syntax. Unsafe code is possible
 
+## Syntax
 
-# Syntax
+### Inbuilt control
 
 Note: Whitespace is ignored
 
@@ -18,7 +20,7 @@ Note: Whitespace is ignored
         - float -> 4 bytes
         - long -> 2 byte char, 8 byte int, 8 byte float
 
-        Note: Zero based indexing, no negative indexing
+        Note: Zero based indexing, no negative indexing, indexing occurs via the datatype itself (e.g if "x" holds integers then x[2] gets the third integer)
 
     - Modifiers
         - $ - Pointer (Dereference with @)
@@ -102,8 +104,103 @@ Note: Whitespace is ignored
 
         Arguments are always passed via reference
 
-        - call [NAME]([NAME] | [NAME] | ...);
+        - call [EXPRESSION]([EXPRESSION] | [EXPRESSION] | ...);
 
             - call check_number with two arguments and assign it to an expression
 
                     hello = call check_number(abc, def);
+
+
+### Standard functions
+
+
+- Dynamic memory
+
+    - allocate([EXPRESSION], [EXPRESSION], [DATATYPE]|);
+
+        Returns nothing. Destination pointer set to 0 if allocation fails.
+
+        - Allocate space for 3 char pointers and return the base pointer to abc
+
+                allocate(abc, 3, char, $);
+
+
+    - free([EXPRESSION]);
+        
+        Returns nothing. Frees memory pointed to by the pointer.
+
+        - Free the dynamic memory associated with abc
+
+                free(abc);
+
+
+    - sleep([EXPRESSION]);
+
+        Returns nothing. Sleeps for a specified number of microseconds
+
+        - Sleep for x + 2 microseconds
+
+                sleep(x + 2);
+
+
+    - input([Expression], [Datatype]);
+
+        Returns nothing. Takes a single input from the terminal and stores it in a varible
+
+        - Get a char input and store it in x
+
+                    input(x, char);
+                    
+    - output([Expression]);
+
+        Returns nothing. Prints a single item (cannot print entire arrays)
+
+        - print the value contained within x
+
+                    output(x);
+
+
+
+
+    - request([ID]); [CODE] stop;
+
+        Returns nothing. Request a core with an ID to execute code until a stop is met. Then idles. 
+        
+        For multicore applications
+
+        - request core 1 to do something
+
+
+                request(1);
+
+                    #Do something
+
+                stop;
+
+
+    - sync([ID]);
+
+        Waits for other cores with the same sync ID to finish executing their code before continuing. ID is not a core ID but the ID of the sync itself
+
+
+        - Wait for all cores to hit their own sync with an ID of 1 before continuing
+
+                sync(1)                    
+
+
+
+
+
+                    
+
+
+
+
+
+                    
+
+
+
+
+
+                    
