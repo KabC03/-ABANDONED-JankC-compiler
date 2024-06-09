@@ -58,7 +58,9 @@ The IR virtual machine has its own system calls that map to C functions
 - ALLOCATE R1 R2
 
     - Requests a block of memory of size (R2) in bytes and places a pointer to its first element into (R1)
+    - If allocation fails R1 is set to 0
     - The size of the block is put into the first element of the array as an unsigned number
+        - On the IR virtual machine the datatype of this size type must be specified during initialisation
 
 - FREE R1
 
