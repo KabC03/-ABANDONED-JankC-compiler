@@ -58,8 +58,16 @@ When architecture specific assembly is produced from the IR, these instrucions a
 The IR virtual machine has its own system calls that map to C functions
 
 
-##### Below: Rx - register, Ix - immediate
+##### Below: Rx - register, Ix - immediate, Lx - label, _x - F/I depending on whether operation occurs on float or integer
 
+- INPUT_x R0
+
+    - Request input from the terminal and store the result into R0
+
+
+- OUTPUT_x R0
+
+    - Print the value contained within R0 to the terminal
 
 - ALLOCATE R0 R1
 
@@ -93,10 +101,11 @@ The IR virtual machine has its own system calls that map to C functions
 
 
 
+
 ### Instructions
 
 
-Below: Rx - register, Ix - immediate, Lx - label, _x - F/I depending on whether operation occurs on float or integer
+##### Below: Rx - register, Ix - immediate, Lx - label, _x - F/I depending on whether operation occurs on float or integer
 
 
 
@@ -175,7 +184,10 @@ Below: Rx - register, Ix - immediate, Lx - label, _x - F/I depending on whether 
 
 
 
+#### Note:
 
+Only float and integer datatypes are expected
 
+Characters/unsigned datatypes are not directly supported
 
 
