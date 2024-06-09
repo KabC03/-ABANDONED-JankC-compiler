@@ -74,7 +74,7 @@ The IR virtual machine has its own system calls that map to C functions
 
     - Marks the instructions below it to be executed in parallel by a CPU core with ID (Immediate1)
 
-- PARRALLEL_STOP
+- PARALLEL_STOP
 
     - Stops the current CPU core executing a block in parallel causing it to idle indefnintely
 
