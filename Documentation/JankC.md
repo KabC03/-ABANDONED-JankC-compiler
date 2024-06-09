@@ -13,10 +13,10 @@ Note: Whitespace is ignored
     - [DATATYPE] [NAME] [MODIFIERS] | = [EXPRESSION];
     
     - Datatypes
-        - char
-        - int
-        - float
-        - long 
+        - char -> 1 byte
+        - int -> 4 bytes
+        - float -> 4 bytes
+        - long -> 2 byte char, 8 byte int, 8 byte float
 
         Note: Zero based indexing, no negative indexing
 
