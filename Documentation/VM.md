@@ -126,8 +126,8 @@ Enabled with the flag "-d"
     - "step" - step forward one instruction
 
     - "breakpoint X" - sets a breakpoint at line X
-    - "Watch X Y Z" - pause execution if register X is Y (>=, <=, !=, ==, >, <) than the number Z
-    - "Continue" - continue past a breakpoint
+    - "watch X Y Z" - pause execution if register X is Y (>=, <=, !=, ==, >, <) than the number Z
+    - "continue" - continue past a breakpoint
 
     - "setreg X Y" - set register X to Y (float or int)
     - "setram X Y" - set the address X to Y (float or int)
