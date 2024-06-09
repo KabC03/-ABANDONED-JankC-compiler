@@ -183,7 +183,7 @@ typedef struct DeclarationModifiers {
 typedef struct DeclarationStatement {
 
     /*
-    int, x, @, [5] = y;
+    int, x, $, [5] = y;
     Above declares x - an int pointer to an array of 5 elements
 
     float, x, [5] = y;
