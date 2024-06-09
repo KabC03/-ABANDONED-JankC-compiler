@@ -166,7 +166,7 @@ Note: Whitespace is ignored
 
         Returns nothing. Request a core with an ID to execute code until a stop is met. Then idles. 
         
-        For multicore applications
+        For multicore applications.
 
         - request core 1 to do something
 
@@ -182,6 +182,7 @@ Note: Whitespace is ignored
 
         Waits for other cores with the same sync ID to finish executing their code before continuing. ID is not a core ID but the ID of the sync itself
 
+        For multicore applications.
 
         - Wait for all cores to hit their own sync with an ID of 1 before continuing
 
