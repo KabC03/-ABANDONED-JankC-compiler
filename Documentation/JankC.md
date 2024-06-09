@@ -16,8 +16,9 @@ Note: Whitespace is ignored
         - char
         - int
         - float
-        - long
-        - array
+        - long 
+
+        Note: Zero based indexing, no negative indexing
 
     - Modifiers
         - $ - Pointer (Dereference with @)
@@ -26,11 +27,11 @@ Note: Whitespace is ignored
 
 
 
-    - Declare "hello" as a pointer to an array of 5 integer elements
+    - Declare "hello" as a pointer to an array of 5 long integer elements
 
-            int, hello, @ | =  [5];
+            int, long, hello, @ | =  [5];
 
-    - Declare "hi" as a long float of value 222.43 + the variable x
+    - Declare "hi" as a long float of value 222.43 + the variable x + the array y at index z + 2
 
             float, hi, long | = 222.43 + x + y[z + 2];
 
@@ -97,8 +98,9 @@ Note: Whitespace is ignored
                     return result;
 
 
-
     - Calling
+
+        Arguments are always passed via reference
 
         - call [NAME]([NAME] | [NAME] | ...);
 
