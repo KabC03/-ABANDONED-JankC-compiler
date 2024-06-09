@@ -17,6 +17,7 @@ Note: Whitespace is ignored
         - int
         - float
         - long
+        - array
 
     - Modifiers
         - $ - Pointer (Dereference with @)
@@ -31,7 +32,7 @@ Note: Whitespace is ignored
 
     - Declare "hi" as a long float of value 222.43 + the variable x
 
-            float, hi, long | = 222.43 + x;
+            float, hi, long | = 222.43 + x + y[z + 2];
 
 
 
@@ -83,11 +84,11 @@ Note: Whitespace is ignored
 
     - Declaration
 
-        - func [RETURN_TYPE] | [NAME]([TYPE] | [TYPE] | ...); [CODE] return;
+        - func [RETURN_TYPE] |:: [NAME]([TYPE] | [TYPE] | ...); [CODE] return;
 
             - a function named check_number which takes two arguments and returns an integer pointer
 
-                    func int, @ | check_number(var1 int,@ | var2 float);
+                    func int, @ |:: check_number(var1 int,@ | var2 float);
 
 
                         #Do something
