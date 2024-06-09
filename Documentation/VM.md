@@ -126,6 +126,7 @@ Enabled with the flag "-d"
     - "step" - step forward one instruction
 
     - "breakpoint X" - sets a breakpoint at line X
+    - "Watch X Y Z" - pause execution if register X is Y (>=, <=, !=, ==, >, <) than the number Z
     - "Continue" - continue past a breakpoint
 
     - "setreg X Y" - set register X to Y (float or int)
@@ -133,12 +134,12 @@ Enabled with the flag "-d"
 
     - "regdump" - dumps register states to terminal
     - "ramdump" - dump RAM contents to the terminal
-    - "memstats" - display percent of RAM being used
+    - "memstats" - display percent of RAM being used and the largest block of memory available
 
 
 ### Unsafe mode
 
-Do not terminate upon OOB access
+Do not terminate upon OOB access. NOT RECCOMENDED
 
 Enabled with "-u"
 
