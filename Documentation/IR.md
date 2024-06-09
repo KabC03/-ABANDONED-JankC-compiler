@@ -43,13 +43,9 @@ All assembly instructions take the form:
 
 - The number of general purpose registers must be specified before compilation
 
-### Instructions
 
 
-
-
-
-### Inbuilt functions
+### Abstracted instructions
 
 To remain architecture independent, the IR contains placeholder instructions that represent system call operations.
 
@@ -60,41 +56,60 @@ When architecture specific assembly is produced from the IR, these instrucions a
 The IR virtual machine has its own system calls that map to C functions
 
 
-- ALLOCATE R1 R2
+##### Below: Rx - register, Ix - immediate
 
-    - Requests a block of memory of size (R2) in bytes and places a pointer to its first element into (R1)
-    - If allocation fails R1 is set to 0
+
+- ALLOCATE R0 R1
+
+    - Requests a block of memory of size (R1) in bytes and places a pointer to its first element into (R0)
+    - If allocation fails R0 is set to 0
     - The size of the block is put into the first element of the array as an unsigned number
         - On the IR virtual machine the datatype of this size type must be specified during initialisation
 
-- FREE R1
+- FREE R0
 
-    - Mark memory pointed to by R1 as free
+    - Mark memory pointed to by R0 as free
 
-- SLEEP Register1
+- SLEEP R0
 
-    - Pauses execution and sleeps for (Register1) microseconds
+    - Pauses execution and sleeps for R0 microseconds
 
 
 
-- PARALLEL_START Immediate1
+- PARALLEL_START I0
 
-    - Marks the instructions below it to be executed in parallel by a CPU core with ID (Immediate1)
+    - Marks the instructions below it to be executed in parallel by a CPU core with ID (I0)
 
 - PARALLEL_STOP
 
     - Stops the current CPU core executing a block in parallel causing it to idle indefnintely
 
-- SYNC Immediate1
+- SYNC I0
 
-    - Synchronises CPU cores by pausing execution until all cores executing a program with the ID of (Immediate1) reach their SYNC instruction with the same ID of (Immediate1)
-
-
+    - Synchronises CPU cores by pausing execution until all cores executing a program with the ID of (I0) reach their SYNC instruction with the same ID of (I0)
 
 
 
 
+### Instructions
 
+##### Below: Rx - register, Ix - immediate, Lx - label, _x - F/I depending on whether operation occurs on float or integer
+
+
+- NOP
+    - No operation
+    - Does nothing for one clock cycle
+
+- JAL Lx
+    - Jump and link
+    - Jumps to label (Lx) after pushing current program counter address onto the stack
+
+- JRT
+    - Jump return
+    - Jumps to the address on the top of the stack (thereby removing it)
+
+- JUMP Lx
+    - Jump unconditionally to label (Lx)
 
 
 
