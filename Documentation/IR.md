@@ -112,15 +112,36 @@ The IR virtual machine has its own system calls that map to C functions
     - Jump unconditionally to label (Lx)
 
 
+- ADD_x R0 R1 R2
+    - Add contents of R1 and R2 and place the result into R0 
+
+- SUB_x R0 R1 R2
+    - Subtract contents of R2 from R1 and place the result into R0
+
+- MUL_x R0 R1 R2
+    - Multiply contents of R1 and R2 and place the result into R0 
+
+- DIV_x R0 R1 R2
+    - Divide contents of R1 and R2 and place the result into R0
+
+- MOD R0 R1 R2
+    - Take the modulus of R1 and R2 and place the result into R0
 
 
+- ADDI_x R0 R1 I0 
+    - Add contents of R1 and R0 and place the result into R0 
 
+- SUBI_x R0 R1 I0
+    - Subtract contents of R2 from R0 and place the result into R0
 
+- MULI_x R0 R1 I0
+    - Multiply contents of R1 and I0 and place the result into R0 
 
+- DIVI_x R0 R1 I0
+    - Divide contents of R1 and I0 and place the result into R0
 
-
-
-
+- MODI R0 R1 I0
+    - Take the modulus of R1 and I0 and place the result into R0
 
 
 
