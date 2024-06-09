@@ -34,6 +34,7 @@ If by the end of the file not all label definitions have been resolved, executio
 - RAM
 
     - A contiguous block of memory of a specified size
+    - Byte addressable
 
 - Program counter
 
@@ -74,9 +75,33 @@ If by the end of the file not all label definitions have been resolved, executio
 
 
 
-### Error output
 
-- Errors
+
+## Flags
+
+Flags to alter the IR virtual machines behaviour
+
+
+### Statisticss
+
+Display statistics about the current program
+
+- Most used register
+- Most used instruction
+- Peak memory usage
+- Minimum memory usage
+
+
+### Random value mode
+
+Initialise the virtual machines registers and RAM to random values before execution
+
+Enabled with "-r"
+
+
+### Quiet mode
+
+Disables error messages:
 
     - Inability to open/close a file
 
@@ -84,23 +109,36 @@ If by the end of the file not all label definitions have been resolved, executio
 
     - OOB errors
 
+Enabled with the flag "-q"
 
 ### Debug mode
 
-Debug mode is a feature that, enables a program to be stepped through line by line
+Enables a program to be stepped through line by line.
 
+Enabled with the flag "-d"
 
 - Line by line execution
 
     - "instructions" - displays the current instruction being executed
 
+    - "step" - step forward one instruction
+
     - "breakpoint X" - sets a breakpoint at line X
     - "Continue" - continue past a breakpoint
 
+    - "setreg X Y" - set register X to Y (float or int)
+    - "setram X Y" - set the address X to Y (float or int)
+
     - "regdump" - dumps register states to terminal
     - "ramdump" - dump RAM contents to the terminal
+    - "memstats" - display percent of RAM being used
 
 
+### Unsafe mode
+
+Do not terminate upon OOB access
+
+Enabled with "-u"
 
 
 
