@@ -86,11 +86,13 @@ Flags to alter the IR virtual machines behaviour
 
 Display statistics about the current program
 
+- Number of instructions executed
+- Number of branches
 - Most used register
 - Most used instruction
 - Peak memory usage
 - Minimum memory usage
-
+- Time to complete program
 
 ### Random value mode
 
