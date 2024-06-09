@@ -1,10 +1,12 @@
 
 # IR emulation on the virtual machine
 
+The IR virtual machine is a virtual computer that inteprets IR output as its own assembly
+
+The virtual machine has its own registers, program counter, RAM and emulated syscalls
 
 
-
-
+## How the virtual machine works
 
 
 
