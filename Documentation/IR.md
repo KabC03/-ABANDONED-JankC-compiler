@@ -98,27 +98,28 @@ The IR virtual machine has its own system calls that map to C functions
 ##### Below: Rx - register, Ix - immediate, Lx - label, _x - F/I depending on whether operation occurs on float or integer
 
 
+##### Misc
+
 - NOP
     - No operation
     - Does nothing for one clock cycle
 
-- JAL Lx
-    - Jump and link
-    - Jumps to label (Lx) after pushing current program counter address onto the stack
 
-- JRT
-    - Jump return
-    - Jumps to the address on the top of the stack (thereby removing it)
+##### Memory
 
-- JUMP Lx
-    - Jump unconditionally to label (Lx)
+- LOAD_x R0 I0 R1
+    - Load the address stored in (R0) with offset (I0) bytes into R1
 
+- STORE_x R0 I0 R1
+    - Store contents of (R0) into the address (R1) with offset (I0)
+
+##### Arithmatic instructions
 
 - ADD_x R0 R1 R2
-    - Add contents of R1 and R2 and place the result into R0 
+    - Add contents of (R1) and (R2) and place the result into R0 
 
 - SUB_x R0 R1 R2
-    - Subtract contents of R2 from R1 and place the result into R0
+    - Subtract contents of (R2) from (R1) and place the result into (R0)
 
 - MUL_x R0 R1 R2
     - Multiply contents of R1 and R2 and place the result into R0 
@@ -146,6 +147,8 @@ The IR virtual machine has its own system calls that map to C functions
     - Take the modulus of R1 and I0 and place the result into R0
 
 
+##### Jump instructions
+
 - BEQ_x R0 R1 Lx
     - If R0 == R1 jump to Lx
 
@@ -155,6 +158,17 @@ The IR virtual machine has its own system calls that map to C functions
 - BLE_x R0 R1 Lx
     - If R0 <= R1 jump to Lx
 
+
+- JAL Lx
+    - Jump and link
+    - Jumps to label (Lx) after pushing current program counter address onto the stack
+
+- JRT
+    - Jump return
+    - Jumps to the address on the top of the stack (thereby removing it)
+
+- JUMP Lx
+    - Jump unconditionally to label (Lx)
 
 
 
