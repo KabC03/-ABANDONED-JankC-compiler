@@ -85,7 +85,7 @@ Note: Whitespace is ignored
             end;
 
 
-- function calls
+- functions
 
     - Declaration
 
