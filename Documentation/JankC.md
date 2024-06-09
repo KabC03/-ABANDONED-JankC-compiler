@@ -6,9 +6,11 @@ Note: Compiler does not perform checks beyond syntax. Unsafe code is possible
 
 ## Syntax
 
+Note: Whitespace is ignored
+
 ### Inbuilt control
 
-Note: Whitespace is ignored
+
 
 - Variable declaration
 
