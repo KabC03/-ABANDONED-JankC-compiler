@@ -35,8 +35,13 @@ All assembly instructions take the form:
 
 ### Registers
 
+- The IR considers only general purpose registers and a stack pointer and are addressed as follows:
+    - Genral purpose:
+        - R0, R1, R2, ...
+    - Stack pointer:
+        - RS
 
-
+- The number of general purpose registers must be specified before compilation
 
 ### Instructions
 
