@@ -25,10 +25,18 @@ If by the end of the file not all label definitions have been resolved, executio
 
 ### Pass over tokens (Intepreter)
 
-Once all tokens are placed into an array the intepreter runs. The program counter is an index into this array that increases by one each clock cycle.
-
 
 #### Most features are indentical to other ISA implementations with some exceptions
+
+- Registers
+
+    - The IR virtual machine only contains a specified number of general purpose registers and a stack pointer
+
+- Program counter
+
+    - The program counter is an index into the instruction array
+    - Increases by one each cycle
+
 
 - Arithmatic instructions
 
