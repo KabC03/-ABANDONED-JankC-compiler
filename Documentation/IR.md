@@ -7,7 +7,7 @@
 The intermediate representation (IR) is an intermediate assembly-like language used in the compiler.
 
 
-It is produced from source code by the compiler and can either be turned into architecture dependednt assembly (and assembled into machine code) or intepreted on the VM directly.
+It is produced from source code by the compiler and can either be turned into architecture dependednt assembly (and assembled into machine code) or intepreted on the IR virtual machine directly.
 
 
 
@@ -36,7 +36,7 @@ All assembly instructions take the form:
 ### Registers
 
 - The IR considers only general purpose registers and a stack pointer and are addressed as follows:
-    - Genral purpose:
+    - General purpose: 
         - R0, R1, R2, ...
     - Stack pointer:
         - RS
@@ -67,7 +67,7 @@ The IR virtual machine has its own system calls that map to C functions
 
 - OUTPUT_x R0
 
-    - Print the value contained within R0 to the terminal
+    - Print the value contained within R0 to the termi
 
 - ALLOCATE R0 R1
 
@@ -92,7 +92,7 @@ The IR virtual machine has its own system calls that map to C functions
 
 - PARALLEL_STOP
 
-    - Stops the current CPU core executing a block in parallel causing it to idle indefnintely
+    - Stops the current CPU core executing a block in parallel causing it to idle indefinitely
 
 - SYNC I0
 
