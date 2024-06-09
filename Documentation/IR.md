@@ -40,6 +40,8 @@ All assembly instructions take the form:
         - R0, R1, R2, ...
     - Stack pointer:
         - RS
+    - Zero (always zero):
+        - RZ
 
 - The number of general purpose registers must be specified before compilation
 
@@ -124,7 +126,7 @@ The IR virtual machine has its own system calls that map to C functions
 - DIV_x R0 R1 R2
     - Divide contents of R1 and R2 and place the result into R0
 
-- MOD R0 R1 R2
+- MOD_x R0 R1 R2
     - Take the modulus of R1 and R2 and place the result into R0
 
 
@@ -140,8 +142,18 @@ The IR virtual machine has its own system calls that map to C functions
 - DIVI_x R0 R1 I0
     - Divide contents of R1 and I0 and place the result into R0
 
-- MODI R0 R1 I0
+- MODI_x R0 R1 I0
     - Take the modulus of R1 and I0 and place the result into R0
+
+
+- BEQ_x R0 R1 Lx
+    - If R0 == R1 jump to Lx
+
+- BLT_x R0 R1 Lx
+    - If R0 < R1 jump to Lx
+
+- BLE_x R0 R1 Lx
+    - If R0 <= R1 jump to Lx
 
 
 
