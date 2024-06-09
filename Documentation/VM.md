@@ -81,6 +81,9 @@ If by the end of the file not all label definitions have been resolved, executio
 
 Flags to alter the IR virtual machines behaviour
 
+    ./program -flags
+
+
 
 ### Statisticss
 
