@@ -95,7 +95,9 @@ The IR virtual machine has its own system calls that map to C functions
 
 ### Instructions
 
-##### Below: Rx - register, Ix - immediate, Lx - label, _x - F/I depending on whether operation occurs on float or integer
+
+Below: Rx - register, Ix - immediate, Lx - label, _x - F/I depending on whether operation occurs on float or integer
+
 
 
 ##### Misc
@@ -122,41 +124,41 @@ The IR virtual machine has its own system calls that map to C functions
     - Subtract contents of (R2) from (R1) and place the result into (R0)
 
 - MUL_x R0 R1 R2
-    - Multiply contents of R1 and R2 and place the result into R0 
+    - Multiply contents of (R1) and (R2) and place the result into (R0)
 
 - DIV_x R0 R1 R2
-    - Divide contents of R1 and R2 and place the result into R0
+    - Divide contents of (R1) and (R2) and place the result into (R0)
 
 - MOD_x R0 R1 R2
-    - Take the modulus of R1 and R2 and place the result into R0
+    - Take the modulus of (R1) and (R2) and place the result into (R0)
 
 
 - ADDI_x R0 R1 I0 
-    - Add contents of R1 and R0 and place the result into R0 
+    - Add contents of (R1) and (R0) and place the result into (R0)
 
 - SUBI_x R0 R1 I0
-    - Subtract contents of R2 from R0 and place the result into R0
+    - Subtract contents of (R2) from (R0) and place the result into (R0)
 
 - MULI_x R0 R1 I0
-    - Multiply contents of R1 and I0 and place the result into R0 
+    - Multiply contents of (R1) and (I0) and place the result into (R0)
 
 - DIVI_x R0 R1 I0
-    - Divide contents of R1 and I0 and place the result into R0
+    - Divide contents of (R1) and (I0) and place the result into (R0)
 
 - MODI_x R0 R1 I0
-    - Take the modulus of R1 and I0 and place the result into R0
+    - Take the modulus of (R1) and (I0) and place the result into (R0)
 
 
 ##### Jump instructions
 
 - BEQ_x R0 R1 Lx
-    - If R0 == R1 jump to Lx
+    - If (R0) == (R1) jump to Lx
 
 - BLT_x R0 R1 Lx
-    - If R0 < R1 jump to Lx
+    - If (R0) < (R1) jump to Lx
 
 - BLE_x R0 R1 Lx
-    - If R0 <= R1 jump to Lx
+    - If (R0) <= (R1) jump to Lx
 
 
 - JAL Lx
